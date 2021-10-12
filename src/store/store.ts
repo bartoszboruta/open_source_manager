@@ -10,7 +10,6 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
-    [internalApi.reducerPath]: internalApi.reducer,
     auth: authSlice,
     login: loginSlice,
     register: registerSlice,
