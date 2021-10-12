@@ -41,17 +41,18 @@
   - get user details -  https://docs.github.com/en/rest/reference/users#get-a-user
 
 ## Tasks
-- **Navigation setup** - together
-- Login page - Lukasz
-- Registration page - Lukasz
+- **Navigation setup** - + Bob
+- Login page - BB
+- Registration page - BB
 - Profile page - Marek
 - Ideas page - utilizes generic list component -
 - Issues page - utilizes generic list component -
 - Add new / edit issue form page - Bob
 - Aew new / edit idea form page - Bob
-- **Authentication setup** - BB
+- **Authentication setup** - Lukasz
 - **Lists** - generic with search at top (search only on local items without api) - generic for ideas / issues pages - stress tests with 10000+ items - Bob
 - Cards - idea / issue - Gosia
+- Details page - Gosia
 - **Toolkit query - api setup**  - together
 
 ## Other things
