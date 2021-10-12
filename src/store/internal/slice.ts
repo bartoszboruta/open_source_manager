@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Issue } from "./types";
+import { Issue, Idea } from "./types";
 import { RootState } from "../store";
 
 // Define a service using a base URL and expected endpoints
@@ -23,9 +23,12 @@ export const internalApi = createApi({
     fetchIssues: builder.query<Issue[], string>({
       query: (filters) => `issues/${filters}`,
     }),
+    fetchIdeas: builder.query<Idea[], string>({
+      query: (filters) => `ideas/${filters}`,
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useFetchIssuesQuery } = internalApi;
+export const { useFetchIssuesQuery, useFetchIdeasQuery } = internalApi;
