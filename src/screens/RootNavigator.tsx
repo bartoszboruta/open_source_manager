@@ -5,7 +5,7 @@ import { setCredentials } from "../../src/store/authSlice";
 import { useAppDispatch } from "../store";
 
 import AuthStack from "./AuthStack";
-import MainStack from "./AuthStack";
+import MainStack from "./MainStack";
 
 const RootNavigator = () => {
   const [isAuth] = useState(false);
@@ -26,7 +26,7 @@ const RootNavigator = () => {
 
   return (
     <NavigationContainer>
-      {isAuth ? <AuthStack /> : <MainStack />}
+      {false ? <AuthStack /> : <MainStack />}
     </NavigationContainer>
   );
 };
