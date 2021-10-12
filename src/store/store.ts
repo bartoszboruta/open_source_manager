@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { internalApi } from "./internal/slice";
 import authSlice from "./authSlice";
+import { reducer as loginSlice } from "./login/slice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
     [internalApi.reducerPath]: internalApi.reducer,
     auth: authSlice,
+    login: loginSlice,
   },
 });
 

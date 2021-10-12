@@ -1,0 +1,5 @@
+- add login and register api
+- add auth flow in navigation
+- add restore token on app launch
+- handle bad request -> got to login page
+- remove hardcoded tokens

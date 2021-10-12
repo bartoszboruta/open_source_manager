@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { User } from "./internal/types";
 import type { RootState } from "./store";
+import { login } from "./login/slice";
 
 type AuthState = {
   user: User | null;
@@ -18,6 +19,16 @@ const slice = createSlice({
       state.user = user;
       state.token = token;
     },
+  },
+  extraReducers: (builder) => {
+    // builder.addCase(login., (state, payload) => {
+    // state.isLoading = true;
+    // console.log("object");
+    // });
+    // builder.addCase(getInvitedContacts.rejected, (state) => {
+    // state.isLoading = false;
+    // state.isError = true;
+    // });  }
   },
 });
 
