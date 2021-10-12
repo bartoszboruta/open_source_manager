@@ -16,3 +16,11 @@ export type Issue = {
   creator: User;
   users: User[];
 };
+
+export type Idea = {
+  description: string;
+  name: string;
+  github_url: string;
+  status: string;
+  creator: User;
+};
