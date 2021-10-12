@@ -5,7 +5,6 @@ import { RootState } from "../store";
 // Define a service using a base URL and expected endpoints
 export const internalApi = createApi({
   reducerPath: "internal",
-
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;

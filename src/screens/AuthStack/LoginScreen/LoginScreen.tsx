@@ -21,6 +21,7 @@ export default () => {
         title="login action"
         onPress={() => loginRequest({ email: "bb8t", password: "123456" })}
       />
+      <Text h3>{JSON.stringify(error)}</Text>
     </>
   );
 };
