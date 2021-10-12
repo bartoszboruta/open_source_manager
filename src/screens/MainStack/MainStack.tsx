@@ -1,7 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Profile from "./Profile";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+import Profile from "./Profile";
+import IssuesStack from "./IssuesStack";
+import IdeasStack from "./IdeasStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,8 +29,8 @@ export default () => (
       tabBarInactiveTintColor: "gray",
     })}
   >
-    <Tab.Screen name="Issues" component={() => null} />
-    <Tab.Screen name="Ideas" component={() => null} />
+    <Tab.Screen name="Issues" component={IssuesStack} />
+    <Tab.Screen name="Ideas" component={IdeasStack} />
     <Tab.Screen name="Profile" component={Profile} />
   </Tab.Navigator>
 );
