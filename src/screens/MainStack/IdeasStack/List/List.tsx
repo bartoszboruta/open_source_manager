@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
-import { Text, SearchBar } from "react-native-elements";
+import { Text, SearchBar, Button } from "react-native-elements";
 import { useFetchIdeasQuery } from "../../../../store/internal/slice";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -9,7 +9,6 @@ export const Ideas = () => {
   const [search, setSeatch] = React.useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIdeasQuery("");
-  console.log(error);
 
   if (isLoading) {
     return (
@@ -26,6 +25,11 @@ export const Ideas = () => {
         <Ionicons color="purple" size={25} name="warning-outline" />
         <Text style={styles.error}>Problem with fetching issues</Text>
         <Text style={styles.error}>{JSON.stringify(error)}</Text>
+        <Button
+          onPress={refetch}
+          icon={<Ionicons color="white" size={20} name="refresh-outline" />}
+          title="Reload"
+        />
       </View>
     );
   }
