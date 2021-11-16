@@ -13,19 +13,21 @@ export type IdeaDetailsProps = {
 
 export default function IdeaDetails(props: IdeaDetailsProps) {
   const { description, github_url, status, creator } = props.route.params?.idea;
-  const navigation = useNavigation();
-
   return (
-    <View>
+    <View style={styles.pageContainer}>
+      <Text style={styles.header}>DESCRIPTION</Text>
       <Text>{description}</Text>
-      <Text>{status}</Text>
+      <Text style={styles.header}>GITHUB 
+      </Text>
       <TouchableOpacity onPress={() => openLink(github_url)}>
-        <Text>{github_url}</Text>
+        <Text style={styles.link}>{github_url}</Text>
       </TouchableOpacity>
-      <Text>{creator.github_name}</Text>
+      <Text style={styles.header} >STATUS</Text>
+      <Text >{status}</Text>
+      <Text style={styles.header}>AUTHOR</Text>
+        <Text>{creator.github_name}</Text>
       <Button
         buttonStyle={styles.button}
-        containerStyle={styles.buttonContainer}
         title="Edit"
         type="outline"
       />

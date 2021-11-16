@@ -11,7 +11,7 @@ import styles from "./styles";
 
 export const Issues = () => {
   const navigation = useNavigation<any>();
-  const [search, setSeatch] = React.useState("");
+  const [search, setSearch] = React.useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIssuesQuery("");
 
@@ -54,11 +54,7 @@ export const Issues = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <IssueCard
-            owner={item?.github_owner}
-            repo={item?.github_repository}
-            issueNumber={item?.github_issue_number}
-          />
+          <Text>{item.description}</Text>
         )}
         refreshing={isFetching}
         onRefresh={refetch}
