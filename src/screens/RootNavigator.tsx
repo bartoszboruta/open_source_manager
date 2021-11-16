@@ -19,7 +19,7 @@ const RootNavigator = () => {
           email: "bozek.wojciech@gmail.com",
         },
         token:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjM0MDQxMDM4LCJleHAiOjE2MzQ5MDUwMzgsImp0aSI6ImJhNmYzYzY5LTJjNjEtNDgwYy1hMjIxLWFkNTllMDk1ZGVhNiJ9.ujH9cqvuRtCjlQaG2OuZYbwToqkzro2kigrca9S_nr0",
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjM3MDU0NjM5LCJleHAiOjE2Mzc5MTg2MzksImp0aSI6IjY0YjJiOTVjLWViN2EtNDgxOS04YTQ3LTJiNzIxNTAzMTc3YyJ9.AsKXNTOUkvvA9T-s3aH_aNexmiuVv470ADA0XG28CRQ",
       })
     );
   }, []);

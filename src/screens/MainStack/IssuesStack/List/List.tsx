@@ -4,9 +4,10 @@ import { Text, SearchBar } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useFetchIssuesQuery } from "../../../../store/internal/slice";
+import IssueCard from "../IssueCard";
 
 export const Issues = () => {
-  const [search, setSeatch] = React.useState("");
+  const [search, setSearch] = React.useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIssuesQuery("");
 
@@ -34,15 +35,17 @@ export const Issues = () => {
       <SearchBar
         lightTheme
         placeholder="Search"
-        onChangeText={setSeatch}
+        onChangeText={setSearch}
         value={search}
       />
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.description}</Text>
-          </View>
+          <IssueCard
+            owner={item?.github_owner}
+            repo={item?.github_repository}
+            issueNumber={item?.github_issue_number}
+          />
         )}
         refreshing={isFetching}
         onRefresh={refetch}

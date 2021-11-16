@@ -11,7 +11,10 @@ export const internalApi = createApi({
 
       // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
-        headers.set("authorization", token);
+        headers.set(
+          "authorization",
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjM3MDU0NjM5LCJleHAiOjE2Mzc5MTg2MzksImp0aSI6IjY0YjJiOTVjLWViN2EtNDgxOS04YTQ3LTJiNzIxNTAzMTc3YyJ9.AsKXNTOUkvvA9T-s3aH_aNexmiuVv470ADA0XG28CRQ"
+        );
       }
 
       return headers;
