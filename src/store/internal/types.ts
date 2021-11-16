@@ -14,6 +14,7 @@ export type Issue = {
   github_issue_number: number;
   status: string;
   creator: User;
+  creator_id: number;
   users: User[];
 };
 

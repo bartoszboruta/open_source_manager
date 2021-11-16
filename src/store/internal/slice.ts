@@ -26,9 +26,32 @@ export const internalApi = createApi({
     fetchIdeas: builder.query<Idea[], string>({
       query: (filters) => `ideas/${filters}`,
     }),
+    fetchIssue: builder.query<Issue, number>({
+      query: (id) => `issues/${id}`,
+    }),
+    createIssue: builder.mutation<Issue, Partial<Issue>>({
+      query: (body) => ({
+        url: `issues/`,
+        method: "POST",
+        body,
+      }),
+    }),
+    updateIssue: builder.mutation<Issue, Partial<Issue>>({
+      query: ({ id, ...body }) => ({
+        url: `issues/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useFetchIssuesQuery, useFetchIdeasQuery } = internalApi;
+export const {
+  useFetchIssuesQuery,
+  useFetchIdeasQuery,
+  useFetchIssueQuery,
+  useCreateIssueMutation,
+  useUpdateIssueMutation,
+} = internalApi;

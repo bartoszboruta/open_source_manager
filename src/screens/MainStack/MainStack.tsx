@@ -12,7 +12,7 @@ export default () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+        let iconName = "";
 
         if (route.name === "Issues") {
           iconName = "albums-outline";
@@ -27,6 +27,7 @@ export default () => (
       },
       tabBarActiveTintColor: "tomato",
       tabBarInactiveTintColor: "gray",
+      headerShown: false,
     })}
   >
     <Tab.Screen name="Issues" component={IssuesStack} />
