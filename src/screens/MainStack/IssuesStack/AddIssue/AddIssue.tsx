@@ -1,8 +1,9 @@
 import React from "react";
 import { Text } from "react-native-elements";
+import IssueForm from "../../../../components/IssueForm";
 
 export const AddIssue = () => {
-  return <Text>Add issue</Text>;
+  return <IssueForm />;
 };
 
 export default AddIssue;

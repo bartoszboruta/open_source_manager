@@ -1,11 +1,15 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import { Text, SearchBar, Button } from "react-native-elements";
+import { View, FlatList, TouchableOpacity } from "react-native";
+import { Text, SearchBar, Button, FAB } from "react-native-elements";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useFetchIssuesQuery } from "../../../../store/internal/slice";
 
+import styles from "./styles";
+
 export const Issues = () => {
+  const navigation = useNavigation<any>();
   const [search, setSeatch] = React.useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIssuesQuery("");
@@ -34,6 +38,10 @@ export const Issues = () => {
     );
   }
 
+  const navigateToIssue = (itemId: number) => () => {
+    navigation.navigate("ShowIssue", { issueId: itemId });
+  };
+
   return (
     <>
       <SearchBar
@@ -45,40 +53,21 @@ export const Issues = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View>
+          <TouchableOpacity onPress={navigateToIssue(item.id)}>
             <Text>{item.description}</Text>
-          </View>
+          </TouchableOpacity>
         )}
         refreshing={isFetching}
         onRefresh={refetch}
       />
+      <FAB
+        size="large"
+        title="+"
+        placement="right"
+        onPress={() => navigation.navigate("AddIssue")}
+      />
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  errorWrapper: {
-    marginTop: 50,
-
-    alignItems: "center",
-  },
-  error: {
-    fontSize: 15,
-    marginTop: 15,
-    color: "purple",
-  },
-  loading: {
-    fontSize: 15,
-    marginTop: 15,
-    color: "blue",
-  },
-  refresh: {
-    backgroundColor: "white",
-    borderColor: "blue",
-    borderRadius: 5,
-    borderWidth: 1,
-    flexDirection: "row",
-  },
-});
 
 export default Issues;

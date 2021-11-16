@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
 import { Text, SearchBar, Button } from "react-native-elements";
@@ -6,7 +6,7 @@ import { useFetchIdeasQuery } from "../../../../store/internal/slice";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const Ideas = () => {
-  const [search, setSeatch] = React.useState("");
+  const [search, setSeatch] = useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIdeasQuery("");
 
@@ -34,12 +34,18 @@ export const Ideas = () => {
     );
   }
 
+  const handleSearchChange: (text?: string) => any | void = (text) => {
+    if (text) {
+      setSeatch(text);
+    }
+  };
+
   return (
     <>
       <SearchBar
         lightTheme
         placeholder="Search"
-        onChangeText={setSeatch}
+        onChangeText={handleSearchChange}
         value={search}
       />
       <FlatList

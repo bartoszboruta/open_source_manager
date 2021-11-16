@@ -7,11 +7,7 @@ import AddIdea from "./AddIdea";
 const Stack = createStackNavigator();
 
 export default () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}
-  >
+  <Stack.Navigator>
     <Stack.Screen name="List" component={List} />
     <Stack.Screen name="AddIdea" component={AddIdea} />
   </Stack.Navigator>
