@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-const Register = () => {
+import { common } from "styles";
+
+import Form from "./Form";
+
+type Props = {};
+
+const Register: React.FC<Props> = () => {
   return (
-    <View>
-      <Text>Register</Text>
+    <View style={common.container}>
+      <Form />
     </View>
   );
 };
