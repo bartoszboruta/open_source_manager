@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+<<<<<<< HEAD
 import {
   Issue,
   Idea,
@@ -7,6 +8,9 @@ import {
   RegisterResponse,
   RegisterRequestInterface,
 } from "./types";
+=======
+import { Issue, Idea, Profile } from "./types";
+>>>>>>> f85c9b9 (initial setup for profile page)
 import { RootState } from "../store";
 
 // Define a service using a base URL and expected endpoints
