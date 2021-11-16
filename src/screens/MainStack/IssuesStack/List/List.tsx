@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useFetchIssuesQuery } from "../../../../store/internal/slice";
