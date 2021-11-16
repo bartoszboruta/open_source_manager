@@ -1,5 +1,8 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, Button, View } from "react-native";
+
+import { useLogin, useRegister } from "../../../hooks";
+import { clearStorage, getToken, getUserData } from "../../../utils";
 
 const apiResponce = {
   login: "octocat",
@@ -36,4 +39,38 @@ const apiResponce = {
   updated_at: "2008-01-14T04:33:35Z",
 };
 
-export default () => <Text>Profile</Text>;
+const Profile = () => {
+  const { login } = useLogin();
+  const { register } = useRegister();
+  return (
+    <View>
+      <Button
+        title="Login"
+        onPress={() => login({ email: "test123", password: "123456" })}
+      />
+      <Button
+        title="Register"
+        onPress={() =>
+          register({
+            email: "test210@wp.pl",
+            confirmed_password: "123456",
+            password: "123456",
+            github_name: "test",
+          })
+        }
+      />
+      <Button
+        title="CheckTokens"
+        onPress={async () => {
+          const token = await getToken();
+          const userData = await getUserData();
+          console.log("STORED TOKEN", token);
+          console.log("STORED USER DATA", userData);
+        }}
+      />
+      <Button title="ClearTokens" onPress={async () => await clearStorage()} />
+    </View>
+  );
+};
+
+export default Profile;

@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { internalApi } from "./internal/slice";
-import authSlice from "./authSlice";
-import { reducer as loginSlice } from "./login/slice";
+import authSlice from "../store/auth/authSlice";
+import { reducer as loginSlice } from "../store/login/loginSlice";
+import { reducer as registerSlice } from "../store/register/registerSlice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
     [internalApi.reducerPath]: internalApi.reducer,
     auth: authSlice,
     login: loginSlice,
+    register: registerSlice,
   },
 });
 

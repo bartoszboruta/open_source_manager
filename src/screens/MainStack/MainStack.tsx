@@ -30,8 +30,8 @@ export default () => (
       headerShown: false,
     })}
   >
-    <Tab.Screen name="Issues" component={IssuesStack} />
-    <Tab.Screen name="Ideas" component={IdeasStack} />
+    {/* <Tab.Screen name="Issues" component={IssuesStack} /> */}
+    {/* <Tab.Screen name="Ideas" component={IdeasStack} /> */}
     <Tab.Screen name="Profile" component={Profile} />
   </Tab.Navigator>
 );

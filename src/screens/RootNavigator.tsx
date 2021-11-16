@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { setCredentials } from "../../src/store/authSlice";
+import { setCredentials } from "../../src/store/auth/authSlice";
 import { useAppDispatch } from "../store";
+
+// enum EnumType {
+//   xs = "xs",
+//   s = "s",
+// }
+
+// type ObjType = {
+//   [key in keyof typeof EnumType]: number;
+// };
+
+// const obj: ObjType = {
+//   xs: 1,
+//   s: 2,
+// };
 
 import AuthStack from "./AuthStack";
 import MainStack from "./MainStack";
@@ -10,6 +24,7 @@ import MainStack from "./MainStack";
 const RootNavigator = () => {
   const [isAuth] = useState(true);
   const dispatch = useAppDispatch();
+
   React.useEffect(() => {
     dispatch(
       setCredentials({
