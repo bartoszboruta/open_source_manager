@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserLoginParams } from "./types";
+import { saveToken } from "../../utils";
+
+import { LoginRequestParams, LoginResponse } from "./types";
 
 export const loginApi = createApi({
   reducerPath: "login",
@@ -7,13 +9,17 @@ export const loginApi = createApi({
     baseUrl: "https://osb-backend.herokuapp.com",
   }),
   endpoints: (builder) => ({
-    login: builder.mutation({
-      query: ({ email, password }: UserLoginParams) => ({
+    login: builder.mutation<LoginResponse, LoginRequestParams>({
+      query: ({ email, password }) => ({
         url: `users/sign_in`,
         method: "POST",
         body: {
           email,
           password,
+        },
+        responseHandler: async (response) => {
+          console.log("response", response.headers.map.authorization);
+          await saveToken(response.headers.map.authorization);
         },
       }),
     }),
