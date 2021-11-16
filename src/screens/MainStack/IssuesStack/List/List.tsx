@@ -5,6 +5,7 @@ import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useFetchIssuesQuery } from "../../../../store/internal/slice";
+import IssueCard from "../IssueCard";
 
 import styles from "./styles";
 
@@ -47,15 +48,17 @@ export const Issues = () => {
       <SearchBar
         lightTheme
         placeholder="Search"
-        onChangeText={setSeatch}
+        onChangeText={setSearch}
         value={search}
       />
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={navigateToIssue(item.id)}>
-            <Text>{item.description}</Text>
-          </TouchableOpacity>
+          <IssueCard
+            owner={item?.github_owner}
+            repo={item?.github_repository}
+            issueNumber={item?.github_issue_number}
+          />
         )}
         refreshing={isFetching}
         onRefresh={refetch}

@@ -5,6 +5,8 @@ import { Text, SearchBar, Button } from "react-native-elements";
 import { useFetchIdeasQuery } from "../../../../store/internal/slice";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import IdeaCard from "../IdeaCard";
+
 export const Ideas = () => {
   const [search, setSeatch] = useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
@@ -50,11 +52,7 @@ export const Ideas = () => {
       />
       <FlatList
         data={data}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.description}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <IdeaCard idea={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
       />

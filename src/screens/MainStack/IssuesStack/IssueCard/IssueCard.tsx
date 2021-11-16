@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text } from "react-native";
-import { useFetchIssueQuery } from "../../../../../store/github/slice";
+import { useFetchIssueQuery } from "../../../../store/github/slice";
 
 type IssueCardProps = {
   owner: string;
