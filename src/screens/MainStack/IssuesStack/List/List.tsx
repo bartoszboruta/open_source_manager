@@ -39,10 +39,6 @@ export const Issues = () => {
     );
   }
 
-  const navigateToIssue = (itemId: number) => () => {
-    navigation.navigate("ShowIssue", { issueId: itemId });
-  };
-
   return (
     <>
       <SearchBar
@@ -54,7 +50,7 @@ export const Issues = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <Text>{item.description}</Text>
+          <IssueCard issue={item}/>
         )}
         refreshing={isFetching}
         onRefresh={refetch}
