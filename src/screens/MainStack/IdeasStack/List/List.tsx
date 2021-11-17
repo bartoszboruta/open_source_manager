@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-
 import { Text, SearchBar, Button } from "react-native-elements";
-import { useFetchIdeasQuery } from "../../../../store/internal/slice";
+import { useNavigation } from "@react-navigation/core";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import { useFetchIdeasQuery } from "../../../../store/internal/slice";
 import IdeaCard from "../IdeaCard";
+import { FAB } from "react-native-elements/dist/buttons/FAB";
 
 export const Ideas = () => {
   const [search, setSeatch] = useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIdeasQuery("");
+  const navigation = useNavigation<any>()
 
   if (isLoading) {
     return (
@@ -55,6 +57,12 @@ export const Ideas = () => {
         renderItem={({ item }) => <IdeaCard idea={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
+      />
+            <FAB
+        size="large"
+        title="+"
+        placement="right"
+        onPress={() => navigation.navigate("AddIdea")}
       />
     </>
   );

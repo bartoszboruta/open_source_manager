@@ -13,6 +13,7 @@ export type IdeaDetailsProps = {
 
 export default function IdeaDetails(props: IdeaDetailsProps) {
   const { description, github_url, status, creator } = props.route.params?.idea;
+  const navigation = useNavigation<any>()
   return (
     <View style={styles.pageContainer}>
       <Text style={styles.header}>DESCRIPTION</Text>
@@ -30,6 +31,7 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
         buttonStyle={styles.button}
         title="Edit"
         type="outline"
+        onPress={()=>navigation.navigate("EditIdea", {idea: props.route.params?.idea})}
       />
     </View>
   );

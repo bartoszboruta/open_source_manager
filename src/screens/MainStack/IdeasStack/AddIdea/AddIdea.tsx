@@ -1,8 +1,8 @@
 import React from "react";
-import { Text } from "react-native-elements";
+import IdeaForm from "../../../../components/IdeaForm";
 
 export const AddIdea = () => {
-  return <Text>Add idea</Text>;
+  return <IdeaForm />;
 };
 
 export default AddIdea;
