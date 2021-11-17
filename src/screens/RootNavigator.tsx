@@ -8,7 +8,7 @@ import AuthStack from "./AuthStack";
 import MainStack from "./MainStack";
 
 const RootNavigator = () => {
-  const [isAuth] = useState(false);
+  const [isAuth] = useState(true);
   const dispatch = useAppDispatch();
   React.useEffect(() => {
     dispatch(
@@ -26,7 +26,7 @@ const RootNavigator = () => {
 
   return (
     <NavigationContainer>
-      {false ? <AuthStack /> : <MainStack />}
+      {isAuth ? <AuthStack /> : <MainStack />}
     </NavigationContainer>
   );
 };
