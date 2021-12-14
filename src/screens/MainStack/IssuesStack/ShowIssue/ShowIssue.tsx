@@ -6,7 +6,7 @@ import { Idea } from "store/internal/types";
 import { openLink } from "utils/linking";
 import { useFetchIssueQuery } from "store/internal/slice";
 
-import styles from "./styles";
+import styles from "styles/cardDetails";
 
 export const ShowIssue = ({ route, navigation }) => {
   const { issueId } = route?.params;

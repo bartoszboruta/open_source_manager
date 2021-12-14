@@ -4,11 +4,10 @@ import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useCallback } from "react";
 
-import { Idea } from "store/internal/types";
 import { useFetchIdeaQuery } from "store/internal/slice";
 import { openLink } from "utils/linking";
 
-import styles from "./styles";
+import styles from "styles/cardDetails";
 
 export type IdeaDetailsProps = {
   route: RouteProp<{ params: { idea_id: number } }, "params">;
@@ -20,8 +19,6 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
   const navigation = useNavigation<any>();
 
   useFocusEffect(useCallback(refetch, []));
-
-  console.log("ideadetail", data);
 
   if (isLoading) {
     return <Text>Loading</Text>;

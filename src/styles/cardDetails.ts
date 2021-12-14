@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  pageContainer:{
+  pageContainer: {
     paddingHorizontal: 12,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     flex: 1,
   },
   button: {
@@ -11,12 +11,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   header: {
-    color: '#a1a1a1',
-    marginTop: 16,
+    color: "#a1a1a1",
+    marginTop: 20,
+    marginBottom: 8,
+    borderBottomColor: "#eeeeee",
+    borderBottomWidth: 1,
   },
   link: {
     color: "#aa11aa",
-  }
+  },
 });
 
 export default styles;
