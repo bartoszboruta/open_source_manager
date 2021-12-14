@@ -1,8 +1,8 @@
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
-import { useNavigation } from "@react-navigation/core";
-import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import { View, FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { useFetchIssuesQuery } from "store/internal/slice";
 import IssueCard from "../IssueCard";
@@ -14,6 +14,8 @@ export const Issues = () => {
   const [search, setSearch] = React.useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIssuesQuery("");
+
+  useFocusEffect(useCallback(refetch, []));
 
   if (isLoading) {
     return (
@@ -52,6 +54,7 @@ export const Issues = () => {
         renderItem={({ item }) => <IssueCard issue={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
+        keyExtractor={(item) => String(item.id)}
       />
       <FAB
         size="large"

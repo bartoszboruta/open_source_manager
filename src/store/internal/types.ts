@@ -22,6 +22,8 @@ export type Idea = {
   github_url: string;
   status: string;
   creator: User;
+  creator_id: number;
+  id?: number;
 };
 
 export type LoginRequestParams = {

@@ -49,6 +49,20 @@ export const internalApi = createApi({
         body,
       }),
     }),
+    createIdea: builder.mutation<Idea, Partial<Idea>>({
+      query: (body) => ({
+        url: `ideas/`,
+        method: "POST",
+        body,
+      }),
+    }),
+    updateIdea: builder.mutation<Idea, Partial<Idea>>({
+      query: ({ id, ...body }) => ({
+        url: `ideas/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
     login: builder.mutation<LoginResponse, LoginRequestParams>({
       query: ({ email, password }) => ({
         url: `users/sign_in`,
@@ -94,4 +108,6 @@ export const {
   useUpdateIssueMutation,
   useLoginMutation,
   useRegisterMutation,
+  useCreateIdeaMutation,
+  useUpdateIdeaMutation,
 } = internalApi;
