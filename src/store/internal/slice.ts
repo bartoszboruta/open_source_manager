@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Issue, Idea } from "./types";
+import {
+  Issue,
+  Idea,
+  LoginResponse,
+  LoginRequestParams,
+  RegisterResponse,
+  RegisterRequestInterface,
+} from "./types";
 import { RootState } from "../store";
 
 // Define a service using a base URL and expected endpoints
@@ -43,6 +50,38 @@ export const internalApi = createApi({
         body,
       }),
     }),
+    login: builder.mutation<LoginResponse, LoginRequestParams>({
+      query: ({ email, password }) => ({
+        url: `users/sign_in`,
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: {
+          email,
+          password,
+        },
+        responseHandler: async (response: any) => {
+          // todo type
+          const user = await response.json();
+
+          return {
+            token: response.headers.map.authorization,
+            user,
+          };
+        },
+      }),
+    }),
+    register: builder.mutation<RegisterResponse, RegisterRequestInterface>({
+      query: ({ email, github_name, password, confirmed_password }) => ({
+        url: `users`,
+        method: "POST",
+        body: {
+          email,
+          github_name,
+          password,
+          confirmed_password,
+        },
+      }),
+    }),
   }),
 });
 
@@ -54,4 +93,6 @@ export const {
   useFetchIssueQuery,
   useCreateIssueMutation,
   useUpdateIssueMutation,
+  useLoginMutation,
+  useRegisterMutation,
 } = internalApi;

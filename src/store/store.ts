@@ -1,22 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
+
 import { internalApi } from "./internal/slice";
 import authSlice from "../store/auth/authSlice";
-import { reducer as loginSlice, loginApi } from "../store/login/loginSlice";
-import {
-  reducer as registerSlice,
-  registerApi,
-} from "../store/register/registerSlice";
-import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
     [internalApi.reducerPath]: internalApi.reducer,
     auth: authSlice,
-    login: loginSlice,
-    register: registerSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(registerApi.middleware),
+    getDefaultMiddleware().concat(internalApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
