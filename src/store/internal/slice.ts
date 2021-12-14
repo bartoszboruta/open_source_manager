@@ -18,10 +18,7 @@ export const internalApi = createApi({
 
       // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
-        headers.set(
-          "authorization",
-          token
-        );
+        headers.set("authorization", token);
       }
 
       return headers;
@@ -48,6 +45,20 @@ export const internalApi = createApi({
     updateIssue: builder.mutation<Issue, Partial<Issue>>({
       query: ({ id, ...body }) => ({
         url: `issues/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
+    createIdea: builder.mutation<Idea, Partial<Idea>>({
+      query: (body) => ({
+        url: `ideas/`,
+        method: "POST",
+        body,
+      }),
+    }),
+    updateIdea: builder.mutation<Idea, Partial<Idea>>({
+      query: ({ id, ...body }) => ({
+        url: `ideas/${id}`,
         method: "PUT",
         body,
       }),
@@ -97,4 +108,6 @@ export const {
   useUpdateIssueMutation,
   useLoginMutation,
   useRegisterMutation,
+  useCreateIdeaMutation,
+  useUpdateIdeaMutation,
 } = internalApi;

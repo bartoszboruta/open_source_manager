@@ -1,8 +1,8 @@
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
-import { useNavigation } from "@react-navigation/core";
+import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import { View, StyleSheet, FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import IdeaCard from "../IdeaCard";
 import { useFetchIdeasQuery } from "store/internal/slice";
@@ -12,6 +12,8 @@ export const Ideas = () => {
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIdeasQuery("");
   const navigation = useNavigation<any>();
+
+  useFocusEffect(useCallback(refetch, []));
 
   if (isLoading) {
     return (
@@ -56,6 +58,7 @@ export const Ideas = () => {
         renderItem={({ item }) => <IdeaCard idea={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
+        keyExtractor={(item) => String(item.id)}
       />
       <FAB
         size="large"

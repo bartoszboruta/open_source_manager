@@ -1,17 +1,20 @@
-import React, { FC } from "react";
-import { useFormik } from "formik";
-import { View } from "react-native";
-import { Issue } from "../../store/internal/types";
 import { Input, Button } from "react-native-elements";
-import styles from "./styles";
+import { useFormik } from "formik";
+import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
+import { View } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { FC } from "react";
+
+import { Issue } from "store/internal/types";
+import { selectCurrentUser } from "store/auth/authSlice";
 import {
   useCreateIssueMutation,
   useFetchIssueQuery,
   useUpdateIssueMutation,
-} from "../../store/internal/slice";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/core";
+} from "store/internal/slice";
 
+import styles from "./styles";
 //TODO change into yup!
 interface IssueFormProps {
   issue?: Partial<Issue>;
@@ -22,6 +25,7 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
   const [createIssue, { isLoading: isCreating }] = useCreateIssueMutation();
   const [updateIssue, { isLoading: isUpdating }] = useUpdateIssueMutation();
   const { refetch } = useFetchIssueQuery(Number(issue.id));
+  const user = useSelector(selectCurrentUser);
 
   const isUpdate = !!issue.id;
   const sendForm = (values: Partial<Issue>) => {
@@ -37,7 +41,7 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
           console.log("error");
         });
     } else {
-      createIssue({ ...values, creator_id: 5 });
+      createIssue({ ...values, creator_id: user?.id }).then(goBack);
     }
   };
 
