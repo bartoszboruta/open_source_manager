@@ -1,31 +1,18 @@
 import * as SecureStore from "expo-secure-store";
-
-type UserData = {
-  userEmail: string;
-  userId: number;
-  githubName: string;
-};
+import { User } from "store/internal/types";
 
 export const saveToken: (value: string) => void = async (value) => {
   await SecureStore.setItemAsync("authorizationToken", value);
 };
 
-export const saveUserData: ({
-  userEmail,
-  userId,
-  githubName,
-}: {
-  userEmail: string;
-  userId: number;
-  githubName: string;
-}) => void = async ({ githubName, userEmail, userId }) => {
-  const userData = JSON.stringify({ userEmail, userId, githubName });
+export const saveUserData = async (userInput: User) => {
+  const userData = JSON.stringify(userInput);
   await SecureStore.setItemAsync("user_data", userData);
 };
 
-export const getUserData: () => Promise<UserData> = async () => {
+export const getUserData: () => Promise<User> = async () => {
   const rawUserData = (await SecureStore.getItemAsync("user_data")) as string;
-  const userData = JSON.parse(rawUserData) as UserData;
+  const userData = JSON.parse(rawUserData) as User;
 
   return userData;
 };
