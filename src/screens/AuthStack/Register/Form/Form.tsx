@@ -5,6 +5,7 @@ import { Button } from "react-native-elements";
 import { KeyboardAvoidingView } from "react-native";
 
 import TextField from "components/Form/TextField";
+import { useRegister } from "hooks";
 
 import schema, { RegisterSchema } from "./schema";
 
@@ -16,9 +17,11 @@ const initialValues: RegisterSchema = {
 };
 
 const Form = () => {
+  const { register, data, isSuccess, isLoading, isError, error } =
+    useRegister();
+
   const submitForm = useCallback((values) => {
-    console.log({ values });
-    // todo: connect with login slice
+    register(values);
   }, []);
 
   return (
@@ -57,7 +60,11 @@ const Form = () => {
               component={TextField}
               secureTextEntry={true}
             />
-            <Button onPress={() => handleSubmit()} title="Register" />
+            <Button
+              loading={isLoading}
+              onPress={() => handleSubmit()}
+              title="Register"
+            />
           </>
         );
       }}

@@ -17,7 +17,10 @@ export const useRegister: () => ReturnHookDataType = () => {
   const [registerMutation, { data, isSuccess, ...hookRest }] =
     useRegisterMutation();
 
+  console.log({ hookRest });
+
   const register: (args: RegisterRequestInterface) => void = (args) => {
+    console.log(args);
     registerMutation(args);
   };
 

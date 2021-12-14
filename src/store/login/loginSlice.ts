@@ -18,8 +18,11 @@ export const loginApi = createApi({
           password,
         },
         responseHandler: async (response) => {
-          console.log("response", response.headers.map.authorization);
           await saveToken(response.headers.map.authorization);
+          return {
+            token: response.headers.map.authorization,
+            user: JSON.parse(response._bodyInit),
+          };
         },
       }),
     }),
