@@ -1,4 +1,5 @@
 import React, { createContext, FC, useEffect, useState } from "react";
+import { setCredentials } from "store/auth/authSlice";
 import { getToken } from "../utils";
 
 export type AuthContextProps = {
@@ -14,11 +15,10 @@ type Props = {
 const AuthProvider: FC<Props> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
 
-  console.log("TOKEN SAVED", token);
-
   useEffect(() => {
     const asyncEffect = async () => {
       const token = await getToken();
+
       if (token) {
         setToken(token);
       }
