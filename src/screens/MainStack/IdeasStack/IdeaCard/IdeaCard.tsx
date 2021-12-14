@@ -6,7 +6,7 @@ import React from "react";
 
 import { Idea } from "store/internal/types";
 
-import styles from "./styles";
+import styles from "styles/card";
 
 type IdeaCardProps = {
   idea: Idea;
@@ -20,9 +20,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
     <Card containerStyle={styles.card}>
       <Card.Title>{name}</Card.Title>
       <Card.Divider />
-
       <Text numberOfLines={2}>{description}</Text>
-
       <View style={styles.detailsContainer}>
         <View>
           <Text>created by:</Text>

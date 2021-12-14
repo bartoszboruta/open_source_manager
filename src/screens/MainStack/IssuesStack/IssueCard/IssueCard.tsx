@@ -6,7 +6,7 @@ import React from "react";
 
 import { Issue } from "store/internal/types";
 
-import styles from "./styles";
+import styles from "styles/card";
 
 type IssueCardProps = {
   issue: Issue;
@@ -27,9 +27,7 @@ export default function IssueCard({ issue }: IssueCardProps) {
     <Card containerStyle={styles.card}>
       <Card.Title>{github_issue_number}</Card.Title>
       <Card.Divider />
-
       <Text numberOfLines={2}>{description}</Text>
-
       <View style={styles.detailsContainer}>
         <View>
           <Text>created by:</Text>

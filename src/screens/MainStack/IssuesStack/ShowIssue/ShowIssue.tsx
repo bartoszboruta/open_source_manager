@@ -34,20 +34,18 @@ export const ShowIssue = ({ route, navigation }) => {
   }
 
   return (
-    data && (
-      <View style={styles.pageContainer}>
-        <Text style={styles.header}>DESCRIPTION</Text>
-        <Text>{data?.description}</Text>
-        <Text style={styles.header}>GITHUB</Text>
-        <TouchableOpacity onPress={() => openLink(data.github_repository)}>
-          <Text style={styles.link}>{data.github_repository}</Text>
-        </TouchableOpacity>
-        <Text style={styles.header}>STATUS</Text>
-        <Text>{data.status}</Text>
-        <Text style={styles.header}>AUTHOR</Text>
-        <Text>{data.creator.github_name}</Text>
-      </View>
-    )
+    <View style={styles.pageContainer}>
+      <Text style={styles.header}>DESCRIPTION</Text>
+      <Text>{data?.description}</Text>
+      <Text style={styles.header}>GITHUB</Text>
+      <TouchableOpacity onPress={() => openLink(data!.github_repository)}>
+        <Text style={styles.link}>{data?.github_repository}</Text>
+      </TouchableOpacity>
+      <Text style={styles.header}>STATUS</Text>
+      <Text>{data?.status}</Text>
+      <Text style={styles.header}>AUTHOR</Text>
+      <Text>{data?.creator.github_name}</Text>
+    </View>
   );
 };
 

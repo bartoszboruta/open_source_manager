@@ -1,10 +1,10 @@
-import { useNavigation } from "@react-navigation/core";
-import React from "react";
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
+import { useNavigation } from "@react-navigation/core";
 import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import React from "react";
 
-import { useFetchIssuesQuery } from "../../../../store/internal/slice";
+import { useFetchIssuesQuery } from "store/internal/slice";
 import IssueCard from "../IssueCard";
 
 import styles from "./styles";
@@ -49,9 +49,7 @@ export const Issues = () => {
       />
       <FlatList
         data={data}
-        renderItem={({ item }) => (
-          <IssueCard issue={item}/>
-        )}
+        renderItem={({ item }) => <IssueCard issue={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
       />

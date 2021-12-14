@@ -1,16 +1,17 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import List from "./List";
-import AddIdea from "./AddIdea";
-import IdeaDetails from "./IdeaDetails";
 import { Icon } from "react-native-elements";
+import React from "react";
+
+import AddIdea from "./AddIdea";
 import EditIdea from "./EditIdea/EditIdea";
+import IdeaDetails from "./IdeaDetails";
+import List from "./List";
 
 type IdeasParamList = {
-  IdeaDetails: { idea: { name: string } };
-  List: undefined;
   AddIdea: undefined;
   EditIdea: { idea: { name: string } };
+  IdeaDetails: { idea: { name: string } };
+  List: undefined;
 };
 
 const Stack = createStackNavigator<IdeasParamList>();
@@ -18,7 +19,10 @@ const Stack = createStackNavigator<IdeasParamList>();
 export default () => (
   <Stack.Navigator>
     <Stack.Screen name="List" component={List} />
-    <Stack.Screen name="AddIdea" component={AddIdea}       options={({ navigation, route }) => ({
+    <Stack.Screen
+      name="AddIdea"
+      component={AddIdea}
+      options={({ navigation, route }) => ({
         title: "Add Idea",
         headerShown: true,
         headerLeft: () => (
@@ -28,7 +32,8 @@ export default () => (
             onPress={() => navigation.goBack()}
           />
         ),
-      })}/>
+      })}
+    />
     <Stack.Screen
       name="IdeaDetails"
       component={IdeaDetails}
@@ -44,7 +49,7 @@ export default () => (
         ),
       })}
     />
-     <Stack.Screen
+    <Stack.Screen
       name="EditIdea"
       component={EditIdea}
       options={({ navigation, route }) => ({

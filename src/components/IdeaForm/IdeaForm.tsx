@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+
 import { Idea } from "store/internal/types";
-import { IdeaDetailsProps } from "screens/MainStack/IdeasStack/IdeaDetails";
 
 type Props = {
   idea?: Idea;

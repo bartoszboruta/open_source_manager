@@ -1,7 +1,7 @@
 import React from "react";
 
 import IdeaForm from "components/IdeaForm";
-import { IdeaDetailsProps } from "../IdeaDetails/IdeaDetails";
+import { IdeaDetailsProps } from "../IdeaDetails";
 
 export const EditIdea = (props: IdeaDetailsProps) => {
   const { idea } = props.route?.params;

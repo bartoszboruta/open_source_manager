@@ -3,19 +3,17 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   card: {
     height: 150,
-
   },
-  detailsContainer:{
-    flexDirection: 'row',
-    marginTop: 10,
+  detailsContainer: {
+    alignContent: "flex-end",
+    alignItems: "flex-end",
+    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: 'flex-end',
-    alignContent: 'flex-end',
-
+    marginTop: 10,
   },
   details: {
     color: "#aa11aa",
-  }
+  },
 });
 
 export default styles;

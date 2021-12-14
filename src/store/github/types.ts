@@ -29,7 +29,7 @@ export type GithubIssue = {
     events_url: string;
     received_events_url: string;
     type: string;
-    site_admin: false;
+    site_admin: boolean;
   };
   labels: [
     {
@@ -39,7 +39,7 @@ export type GithubIssue = {
       name: string;
       description: string;
       color: string;
-      default: true;
+      default: boolean;
     }
   ];
   assignee: {
@@ -60,7 +60,7 @@ export type GithubIssue = {
     events_url: string;
     received_events_url: string;
     type: string;
-    site_admin: false;
+    site_admin: boolean;
   };
   assignees: [
     {
@@ -81,7 +81,7 @@ export type GithubIssue = {
       events_url: string;
       received_events_url: string;
       type: string;
-      site_admin: false;
+      site_admin: boolean;
     }
   ];
   milestone: {
@@ -112,7 +112,7 @@ export type GithubIssue = {
       events_url: string;
       received_events_url: string;
       type: string;
-      site_admin: false;
+      site_admin: boolean;
     };
     open_issues: number;
     closed_issues: number;
@@ -121,7 +121,7 @@ export type GithubIssue = {
     closed_at: string;
     due_on: string;
   };
-  locked: true;
+  locked: boolean;
   active_lock_reason: string;
   comments: number;
   pull_request: {
@@ -130,7 +130,7 @@ export type GithubIssue = {
     diff_url: string;
     patch_url: string;
   };
-  closed_at: null;
+  closed_at: string;
   created_at: string;
   updated_at: string;
   closed_by: {
@@ -151,7 +151,7 @@ export type GithubIssue = {
     events_url: string;
     received_events_url: string;
     type: string;
-    site_admin: false;
+    site_admin: boolean;
   };
   author_association: string;
 };
