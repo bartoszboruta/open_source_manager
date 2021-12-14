@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, Button, View } from "react-native";
+import { setCredentials } from "store/auth/authSlice";
 
 import { useLogin, useRegister } from "../../../hooks";
 import { clearStorage, getToken, getUserData } from "../../../utils";
@@ -68,7 +69,12 @@ const Profile = () => {
           console.log("STORED USER DATA", userData);
         }}
       />
-      <Button title="ClearTokens" onPress={async () => await clearStorage()} />
+      <Button
+        title="ClearTokens"
+        onPress={async () => {
+          await clearStorage();
+        }}
+      />
     </View>
   );
 };

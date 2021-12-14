@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { RegisterRequestInterface, RegisterResponse } from "./types";
 
-export const loginApi = createApi({
+export const registerApi = createApi({
   reducerPath: "register",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://osb-backend.herokuapp.com",
@@ -27,4 +27,4 @@ export const {
   useRegisterMutation,
   reducer,
   endpoints: { register },
-} = loginApi;
+} = registerApi;
