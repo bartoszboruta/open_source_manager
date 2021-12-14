@@ -1,17 +1,26 @@
-import * as React from "react";
-import { Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/core";
 import { Card } from "react-native-elements";
+import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Issue } from "../../../../store/internal/types";
+import { useNavigation } from "@react-navigation/core";
+import React from "react";
+
+import { Issue } from "store/internal/types";
+
 import styles from "./styles";
 
 type IssueCardProps = {
-  issue: Issue
+  issue: Issue;
 };
 
-export default function IssueCard({issue}: IssueCardProps) {
-  const { id, description, status, creator, github_repository, github_issue_number } = issue;
+export default function IssueCard({ issue }: IssueCardProps) {
+  const {
+    id,
+    description,
+    status,
+    creator,
+    github_repository,
+    github_issue_number,
+  } = issue;
   const navigation = useNavigation<any>();
 
   return (

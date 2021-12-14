@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-import { common } from '../../../styles';
+import { common } from "styles";
 
 import Form from "./Form";
 

@@ -1,9 +1,11 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
-import { useFetchIssueQuery } from "../../../../store/internal/slice";
-import { Idea } from "../../../../store/internal/types";
-import { openLink } from "../../../../utils/linking";
+import { View, Text, TouchableOpacity } from "react-native";
+import React from "react";
+
+import { Idea } from "store/internal/types";
+import { openLink } from "utils/linking";
+import { useFetchIssueQuery } from "store/internal/slice";
+
 import styles from "./styles";
 
 export const ShowIssue = ({ route, navigation }) => {

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
 import { useNavigation } from "@react-navigation/core";
+import { View, StyleSheet, FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { useState } from "react";
 
-import { useFetchIdeasQuery } from "../../../../store/internal/slice";
 import IdeaCard from "../IdeaCard";
+import { useFetchIdeasQuery } from "store/internal/slice";
 
 export const Ideas = () => {
   const [search, setSeatch] = useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIdeasQuery("");
-  const navigation = useNavigation<any>()
+  const navigation = useNavigation<any>();
 
   if (isLoading) {
     return (

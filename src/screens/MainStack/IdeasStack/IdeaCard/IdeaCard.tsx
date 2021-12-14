@@ -1,9 +1,11 @@
-import * as React from "react";
-import { Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/core";
 import { Card } from "react-native-elements";
+import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Idea } from "../../../../store/internal/types";
+import { useNavigation } from "@react-navigation/core";
+import React from "react";
+
+import { Idea } from "store/internal/types";
+
 import styles from "./styles";
 
 type IdeaCardProps = {
