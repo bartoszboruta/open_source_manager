@@ -9,8 +9,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { User } from "store/internal/types";
 
 export type AuthContextProps = {
+  user: User | null;
   token: string | null;
-  setCredentials: (token?: string, user?: any) => void;
+  setCredentials: (token?: string, user?: User) => void;
   resetCredentials: () => void;
 };
 
