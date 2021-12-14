@@ -7,10 +7,10 @@ import { AuthProvider } from "./src/contexts";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <AuthProvider>
         <RootNavigator />
-      </Provider>
-    </AuthProvider>
+      </AuthProvider>
+    </Provider>
   );
 }
