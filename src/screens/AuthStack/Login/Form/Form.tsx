@@ -5,17 +5,18 @@ import { Button } from "react-native-elements";
 import { KeyboardAvoidingView } from "react-native";
 
 import TextField from "components/Form/TextField";
-import { useLogin } from "hooks";
 
 import schema, { LoginSchema } from "./schema";
 import { setCredentials } from "store/auth/authSlice";
 import { useAppDispatch } from "store";
+import { useLoginMutation } from "store/internal/slice";
 
 const initialValues: LoginSchema = { name: "", password: "" };
 
 const Form = () => {
   const dispatch = useAppDispatch();
-  const { login, data, isSuccess, isLoading } = useLogin();
+  const [loginMutation, { data, isLoading, isError, error }] =
+    useLoginMutation();
 
   useEffect(() => {
     if (data) {
@@ -23,13 +24,11 @@ const Form = () => {
     }
   }, [data]);
 
-  console.log({ data });
-
   const submitForm = useCallback(
     (values) => {
-      login({ email: values.name, password: values.password });
+      loginMutation({ email: values.name, password: values.password });
     },
-    [login]
+    [loginMutation]
   );
 
   return (
@@ -55,7 +54,11 @@ const Form = () => {
               component={TextField}
               secureTextEntry={true}
             />
-            <Button onPress={() => handleSubmit()} title="Login" />
+            <Button
+              loading={isLoading}
+              onPress={() => handleSubmit()}
+              title="Login"
+            />
           </>
         );
       }}

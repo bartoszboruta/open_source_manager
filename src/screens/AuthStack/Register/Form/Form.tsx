@@ -1,11 +1,9 @@
 import React, { useCallback } from "react";
 import { Formik, Field } from "formik";
-
 import { Button } from "react-native-elements";
-import { KeyboardAvoidingView } from "react-native";
 
 import TextField from "components/Form/TextField";
-import { useRegister } from "hooks";
+import { useRegisterMutation } from "store/internal/slice";
 
 import schema, { RegisterSchema } from "./schema";
 
@@ -17,11 +15,11 @@ const initialValues: RegisterSchema = {
 };
 
 const Form = () => {
-  const { register, data, isSuccess, isLoading, isError, error } =
-    useRegister();
+  const [registerMutation, { data, isLoading, isError, error }] =
+    useRegisterMutation();
 
   const submitForm = useCallback((values) => {
-    register(values);
+    registerMutation(values);
   }, []);
 
   return (
