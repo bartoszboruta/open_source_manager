@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-<<<<<<< HEAD
 import {
   Issue,
   Idea,
@@ -8,9 +7,6 @@ import {
   RegisterResponse,
   RegisterRequestInterface,
 } from "./types";
-=======
-import { Issue, Idea, Profile } from "./types";
->>>>>>> f85c9b9 (initial setup for profile page)
 import { RootState } from "../store";
 
 // Define a service using a base URL and expected endpoints
@@ -22,10 +18,7 @@ export const internalApi = createApi({
 
       // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
-        headers.set(
-          "authorization",
-          token
-        );
+        headers.set("authorization", token);
       }
 
       return headers;
