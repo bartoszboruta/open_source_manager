@@ -12,14 +12,16 @@ import { RootState } from "../store";
 // Define a service using a base URL and expected endpoints
 export const internalApi = createApi({
   reducerPath: "internal",
-
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
 
       // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
-        headers.set("authorization", token);
+        headers.set(
+          "authorization",
+          token
+        );
       }
 
       return headers;

@@ -1,16 +1,17 @@
-import { useNavigation } from "@react-navigation/core";
-import React from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
+import { useNavigation } from "@react-navigation/core";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import React from "react";
 
-import { useFetchIssuesQuery } from "../../../../store/internal/slice";
+import { useFetchIssuesQuery } from "store/internal/slice";
+import IssueCard from "../IssueCard";
 
 import styles from "./styles";
 
 export const Issues = () => {
   const navigation = useNavigation<any>();
-  const [search, setSeatch] = React.useState("");
+  const [search, setSearch] = React.useState("");
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIssuesQuery("");
 
@@ -38,25 +39,17 @@ export const Issues = () => {
     );
   }
 
-  const navigateToIssue = (itemId: number) => () => {
-    navigation.navigate("ShowIssue", { issueId: itemId });
-  };
-
   return (
     <>
       <SearchBar
         lightTheme
         placeholder="Search"
-        onChangeText={setSeatch}
+        onChangeText={setSearch}
         value={search}
       />
       <FlatList
         data={data}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={navigateToIssue(item.id)}>
-            <Text>{item.description}</Text>
-          </TouchableOpacity>
-        )}
+        renderItem={({ item }) => <IssueCard issue={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
       />
