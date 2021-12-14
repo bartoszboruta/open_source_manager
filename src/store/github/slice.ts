@@ -15,13 +15,9 @@ export const githubApi = createApi({
         `/repos/${owner}/${repo}/issues/${issueNumber}`,
     }),
     fetchProfile: builder.query<GitHubProfile, ProfileParams>({
-      query: ({ name }) => ({
-        url: "user",
-        method: "GET",
-        body: { name },
-      }),
+      query: ({ name }) => `/users/${name}`,
     }),
   }),
 });
 
-export const { useFetchIssueQuery } = githubApi;
+export const { useFetchIssueQuery, useFetchProfileQuery } = githubApi;

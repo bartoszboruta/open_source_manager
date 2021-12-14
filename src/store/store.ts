@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 import { internalApi } from "./internal/slice";
+import { githubApi } from "./github/slice";
 import authSlice from "../store/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
     [internalApi.reducerPath]: internalApi.reducer,
+    [githubApi.reducerPath]: githubApi.reducer,
     auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
