@@ -35,6 +35,9 @@ export const internalApi = createApi({
     fetchIssue: builder.query<Issue, number>({
       query: (id) => `issues/${id}`,
     }),
+    fetchIdea: builder.query<Idea, number>({
+      query: (id) => `ideas/${id}`,
+    }),
     createIssue: builder.mutation<Issue, Partial<Issue>>({
       query: (body) => ({
         url: `issues/`,
@@ -104,6 +107,7 @@ export const {
   useFetchIssuesQuery,
   useFetchIdeasQuery,
   useFetchIssueQuery,
+  useFetchIdeaQuery,
   useCreateIssueMutation,
   useUpdateIssueMutation,
   useLoginMutation,
