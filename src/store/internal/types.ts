@@ -23,7 +23,7 @@ export type Idea = {
   status: string;
   creator: User;
   creator_id: number;
-  id?: number;
+  id: number;
 };
 
 export type LoginRequestParams = {

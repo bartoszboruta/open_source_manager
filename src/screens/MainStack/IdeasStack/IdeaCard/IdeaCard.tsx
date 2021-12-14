@@ -27,7 +27,9 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
           <Text>{creator.github_name}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("IdeaDetails", { idea })}
+          onPress={() =>
+            navigation.navigate("IdeaDetails", { idea_id: idea.id })
+          }
         >
           <Text style={styles.details}>Show Details</Text>
         </TouchableOpacity>

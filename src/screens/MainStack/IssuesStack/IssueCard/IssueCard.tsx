@@ -25,7 +25,9 @@ export default function IssueCard({ issue }: IssueCardProps) {
 
   return (
     <Card containerStyle={styles.card}>
-      <Card.Title>{github_issue_number}</Card.Title>
+      <Card.Title>
+        {github_repository} / {github_issue_number}
+      </Card.Title>
       <Card.Divider />
       <Text numberOfLines={2}>{description}</Text>
       <View style={styles.detailsContainer}>
