@@ -11,10 +11,8 @@ export const githubApi = createApi({
   }),
   endpoints: (builder) => ({
     fetchGithubIssue: builder.query<GithubIssue, IssueParams>({
-      query: ({ owner, repo, issueNumber }) => {
-        console.log(owner, repo, issueNumber);
-        return `/repos/${owner}/${repo}/issues/${issueNumber}`;
-      },
+      query: ({ owner, repo, issueNumber }) =>
+        `/repos/${owner}/${repo}/issues/${issueNumber}`,
     }),
     fetchProfile: builder.query<GitHubProfile, ProfileParams>({
       query: ({ name }) => `/users/${name}`,
