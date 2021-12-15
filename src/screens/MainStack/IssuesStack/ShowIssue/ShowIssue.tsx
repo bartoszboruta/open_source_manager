@@ -1,12 +1,13 @@
 import { Button } from "react-native-elements";
 import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Idea } from "store/internal/types";
 import { openLink } from "utils/linking";
 import { useFetchIssueQuery } from "store/internal/slice";
 
 import styles from "styles/cardDetails";
+
+import ShowGithubIssue from "./ShowGithubIssue";
 
 export const ShowIssue = ({ route, navigation }) => {
   const { issueId } = route?.params;
@@ -45,6 +46,7 @@ export const ShowIssue = ({ route, navigation }) => {
       <Text>{data?.status}</Text>
       <Text style={styles.header}>AUTHOR</Text>
       <Text>{data?.creator.github_name}</Text>
+      <ShowGithubIssue />
     </View>
   );
 };

@@ -12,7 +12,10 @@ export const store = configureStore({
     auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(internalApi.middleware),
+    getDefaultMiddleware().concat([
+      internalApi.middleware,
+      githubApi.middleware,
+    ]),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
