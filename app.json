@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "open_source_manager",
+    "owner": "tobob",
     "slug": "open_source_manager",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,7 +29,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.tobob.open_source_manager",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
