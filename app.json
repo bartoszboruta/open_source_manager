@@ -19,8 +19,8 @@
     "ios": {
       "bundleIdentifier": "com.tobob.osm",
       "supportsTablet": true,
-      "appIcon": "./open-source.png",
-      "buildNumber": "2"
+      "appIcon": "./assets/icon.png",
+      "buildNumber": "3"
     },
     "android": {
       "adaptiveIcon": {
