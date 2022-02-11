@@ -20,4 +20,4 @@ export const githubApi = createApi({
   }),
 });
 
-export const { useFetchGithubIssueQuery } = githubApi;
+export const { useFetchGithubIssueQuery, useFetchProfileQuery } = githubApi;
