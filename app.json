@@ -12,7 +12,9 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 300000
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,7 +22,7 @@
     "ios": {
       "bundleIdentifier": "com.tobob.osm",
       "supportsTablet": true,
-      "appIcon": "./assets/icon.png",
+      "icon": "./assets/icon.png",
       "buildNumber": "3"
     },
     "android": {
@@ -29,7 +31,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.tobob.open_source_manager",
-      "versionCode": 3
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"

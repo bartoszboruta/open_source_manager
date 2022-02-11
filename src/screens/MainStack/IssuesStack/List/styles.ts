@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   errorWrapper: {
     marginTop: 50,
-
     alignItems: "center",
   },
   error: {
