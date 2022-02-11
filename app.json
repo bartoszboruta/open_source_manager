@@ -17,13 +17,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.tobob.osm",
+      "supportsTablet": true,
+      "appIcon": "./open-source.png",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.tobob.open_source_manager",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
