@@ -5,8 +5,8 @@ import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
 import { View, TouchableOpacity, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { FC, useState } from "react";
-
+import React, { FC, useRef, useState } from "react";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { Issue } from "store/internal/types";
 import { selectCurrentUser } from "store/auth/authSlice";
 import {
@@ -17,11 +17,16 @@ import {
 
 import styles from "./styles";
 //TODO change into yup!
+
+const statuses = ["new", "assigned", "done"];
+
 interface IssueFormProps {
   issue?: Partial<Issue>;
 }
 
-const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
+const IssueForm: FC<IssueFormProps> = ({ issue = { status: "new" } }) => {
+  const statusInputRef = useRef<any>();
+  const { showActionSheetWithOptions } = useActionSheet();
   const { goBack } = useNavigation();
   const [createIssue, { isLoading: isCreating }] = useCreateIssueMutation();
   const [updateIssue, { isLoading: isUpdating }] = useUpdateIssueMutation();
@@ -92,6 +97,24 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
     setFieldValue("github_issue_number", String(issue));
   };
 
+  const openPicker = () => {
+    const options = [...statuses, "Cancel"];
+    const cancelButtonIndex = 3;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      (index) => {
+        if ((index || index === 0) && index > -1) {
+          handleChange("status")(statuses[index]);
+        }
+        statusInputRef.current?.blur?.();
+      }
+    );
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.actions}>
@@ -126,9 +149,11 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
         onChangeText={handleChange("github_issue_number")}
         placeholder={"Github Issue Number"}
       />
-      
+
       <Input
+        ref={statusInputRef}
         value={values.status}
+        onFocus={openPicker}
         onChangeText={handleChange("status")}
         placeholder={"Status"}
       />

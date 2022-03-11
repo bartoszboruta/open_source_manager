@@ -56,16 +56,16 @@ const Profile = () => {
         <View style={styles.headerUser}>
           <Image
             style={styles.avatar}
-            source={{ uri: data.avatar_url }}
+            source={{ uri: data?.avatar_url }}
           ></Image>
-          <Text style={styles.handle}>{data.login}</Text>
+          <Text style={styles.handle}>{data?.login}</Text>
         </View>
         <TouchableOpacity onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={30} color="black" />
         </TouchableOpacity>
       </View>
       <View style={styles.body}>
-        <Text style={styles.name}>{data.name}</Text>
+        <Text style={styles.name}>{data?.name}</Text>
         <Issues />
       </View>
     </SafeAreaView>
