@@ -27,10 +27,10 @@ export const internalApi = createApi({
   }),
   endpoints: (builder) => ({
     fetchIssues: builder.query<Issue[], string>({
-      query: (filters) => `issues/${filters}`,
+      query: (filters) => `issues${filters}`,
     }),
     fetchIdeas: builder.query<Idea[], string>({
-      query: (filters) => `ideas/${filters}`,
+      query: (filters) => `ideas${filters}`,
     }),
     fetchIssue: builder.query<Issue, number>({
       query: (id) => `issues/${id}`,
