@@ -2,20 +2,60 @@ import { Text, SearchBar, Button, FAB } from "react-native-elements";
 import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import { View, FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 
 import { useFetchIssuesQuery } from "store/internal/slice";
 import IssueCard from "../IssueCard";
 
 import styles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store/store";
+import { selectCurrentUser } from "store/auth/authSlice";
+import { matchSorter } from "match-sorter";
+import {
+  availableFilterOptions,
+  clearIssueSearch,
+  setIssueSearch,
+  setIssuesFilter,
+} from "store/filtering/slice";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
 
 export const Issues = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation<any>();
-  const [search, setSearch] = React.useState("");
-  const { data, isLoading, isError, error, refetch, isFetching } =
-    useFetchIssuesQuery("");
+  const currentUser = useSelector(selectCurrentUser);
 
-  useFocusEffect(useCallback(refetch, []));
+  const search = useSelector(
+    (state: RootState) => state.filtering.issues.search
+  );
+
+  const selectedFilter: Filter = useSelector(
+    (state: RootState) => state.filtering.issues.filter
+  );
+
+  const args = useMemo(() => {
+    if (selectedFilter === "Assigned to me") {
+      return `?q[users_id_in][]=${currentUser?.id}`;
+    }
+    if (selectedFilter === "Created by me") {
+      return `?q[creator_id_in][]=${currentUser?.id}`;
+    }
+    return "";
+  }, [selectedFilter]);
+
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useFetchIssuesQuery(args);
+
+  const resultsToDisplay = useMemo(() => {
+    if (data) {
+      return matchSorter(data, search, { keys: ["name", "description"] });
+    }
+    return data || [];
+  }, [search, data]);
+
+  useEffect(() => {
+    refetch();
+  }, [selectedFilter]);
 
   if (isLoading) {
     return (
@@ -41,23 +81,44 @@ export const Issues = () => {
     );
   }
 
+  const handleSearchChange: (text?: string) => any | void = (text) => {
+    dispatch(setIssueSearch(text || ""));
+  };
+
+  console.log(resultsToDisplay);
+
   return (
     <>
       <SearchBar
         lightTheme
         placeholder="Search"
-        onChangeText={setSearch}
+        onChangeText={handleSearchChange}
         value={search}
+        onClear={() => dispatch(clearIssueSearch())}
+      />
+      <SegmentedControl
+        values={availableFilterOptions}
+        selectedIndex={availableFilterOptions.findIndex(
+          (elem) => elem === selectedFilter
+        )}
+        onChange={(event) => {
+          dispatch(
+            setIssuesFilter(
+              availableFilterOptions[event.nativeEvent.selectedSegmentIndex]
+            )
+          );
+        }}
       />
       <FlatList
-        data={data}
+        data={resultsToDisplay}
+        extraData={[search, selectedFilter]}
         renderItem={({ item }) => <IssueCard issue={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
       />
       <FAB
-        icon={{ name: 'add', color: 'white' }}
+        icon={{ name: "add", color: "white" }}
         placement="right"
         size="large"
         onPress={() => navigation.navigate("AddIssue")}

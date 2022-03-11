@@ -9,11 +9,9 @@ import { useAuth } from "hooks";
 import { AuthContext } from "contexts";
 
 const Profile = () => {
-  const { resetCredentials } = useContext(AuthContext);
   const { data, error, isLoading } = useFetchProfileQuery({
     name: "marektro",
   });
-  const dispatch = useDispatch();
 
   if (isLoading) {
     return (
@@ -37,14 +35,9 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{ flex: 1 }}
-        onPress={() => resetCredentials?.()}
-      >
-        <Text style={styles.handle}>{data.login}</Text>
-        <Image style={styles.avatar} source={{ uri: data.avatar_url }}></Image>
-        <Text style={styles.name}>{data.name}</Text>
-      </TouchableOpacity>
+      <Text style={styles.handle}>{data.login}</Text>
+      <Image style={styles.avatar} source={{ uri: data.avatar_url }}></Image>
+      <Text style={styles.name}>{data.name}</Text>
     </View>
   );
 };

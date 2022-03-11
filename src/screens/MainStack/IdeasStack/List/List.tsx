@@ -17,7 +17,6 @@ import {
   setIdeaSearch,
 } from "store/filtering/slice";
 import { selectCurrentUser } from "store/auth/authSlice";
-import { useDebounce } from "hooks/useDebounce";
 
 export const Ideas = () => {
   const dispatch = useDispatch();
@@ -40,16 +39,12 @@ export const Ideas = () => {
     return "";
   }, [selectedFilter]);
 
-  const searchDebounce = useDebounce({ value: search, delay: 100 });
-
   const { data, isLoading, isError, error, refetch, isFetching } =
     useFetchIdeasQuery(args);
 
   const resultsToDisplay = useMemo(() => {
-    if (searchDebounce) {
-      if (data) {
-        return matchSorter(data, search, { keys: ["name", "description"] });
-      }
+    if (data) {
+      return matchSorter(data, search, { keys: ["name", "description"] });
     }
     return data || [];
   }, [search, data]);
@@ -112,10 +107,11 @@ export const Ideas = () => {
       />
       <FlatList
         data={resultsToDisplay}
+        extraData={[search, selectedFilter]}
         renderItem={({ item }) => <IdeaCard idea={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
       />
       <FAB
         icon={{ name: "add", color: "white" }}
