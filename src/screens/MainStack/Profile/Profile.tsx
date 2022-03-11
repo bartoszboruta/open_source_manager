@@ -21,7 +21,6 @@ const Profile = () => {
     resetCredentials();
   }
 
-
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>

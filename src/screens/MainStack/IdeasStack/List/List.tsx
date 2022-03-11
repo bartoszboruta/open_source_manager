@@ -1,19 +1,59 @@
 import { Text, SearchBar, Button, FAB } from "react-native-elements";
-import { useFocusEffect, useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import { View, StyleSheet, FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useMemo } from "react";
+import { matchSorter } from "match-sorter";
 
 import IdeaCard from "../IdeaCard";
 import { useFetchIdeasQuery } from "store/internal/slice";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store/store";
+import {
+  availableFilterOptions,
+  clearIdeaSearch,
+  setIdeaFilter,
+  setIdeaSearch,
+} from "store/filtering/slice";
+import { selectCurrentUser } from "store/auth/authSlice";
 
 export const Ideas = () => {
-  const [search, setSeatch] = useState("");
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+  const search = useSelector(
+    (state: RootState) => state.filtering.ideas.search
+  );
+
+  const selectedFilter: Filter = useSelector(
+    (state: RootState) => state.filtering.ideas.filter
+  );
+
+  const args = useMemo(() => {
+    if (selectedFilter === "Assigned to me") {
+      return `?q[users_id_in][]=${currentUser?.id}`;
+    }
+    if (selectedFilter === "Created by me") {
+      return `?q[creator_id_in][]=${currentUser?.id}`;
+    }
+    return "";
+  }, [selectedFilter]);
+
   const { data, isLoading, isError, error, refetch, isFetching } =
-    useFetchIdeasQuery("");
+    useFetchIdeasQuery(args);
+
+  const resultsToDisplay = useMemo(() => {
+    if (data) {
+      return matchSorter(data, search, { keys: ["name", "description"] });
+    }
+    return data || [];
+  }, [search, data]);
+
   const navigation = useNavigation<any>();
 
-  useFocusEffect(useCallback(refetch, []));
+  useEffect(() => {
+    refetch();
+  }, [selectedFilter]);
 
   if (isLoading) {
     return (
@@ -40,9 +80,7 @@ export const Ideas = () => {
   }
 
   const handleSearchChange: (text?: string) => any | void = (text) => {
-    if (text) {
-      setSeatch(text);
-    }
+    dispatch(setIdeaSearch(text || ""));
   };
 
   return (
@@ -52,16 +90,31 @@ export const Ideas = () => {
         placeholder="Search"
         onChangeText={handleSearchChange}
         value={search}
+        onClear={() => dispatch(clearIdeaSearch())}
+      />
+      <SegmentedControl
+        values={availableFilterOptions}
+        selectedIndex={availableFilterOptions.findIndex(
+          (elem) => elem === selectedFilter
+        )}
+        onChange={(event) => {
+          dispatch(
+            setIdeaFilter(
+              availableFilterOptions[event.nativeEvent.selectedSegmentIndex]
+            )
+          );
+        }}
       />
       <FlatList
-        data={data}
+        data={resultsToDisplay}
+        extraData={[search, selectedFilter]}
         renderItem={({ item }) => <IdeaCard idea={item} />}
         refreshing={isFetching}
         onRefresh={refetch}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
       />
       <FAB
-        icon={{ name: 'add', color: 'white' }}
+        icon={{ name: "add", color: "white" }}
         placement="right"
         size="large"
         onPress={() => navigation.navigate("AddIdea")}
