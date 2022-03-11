@@ -11,6 +11,8 @@ import ShowGithubIssue from "./ShowGithubIssue";
 import { NavigationProp, RouteProp } from "@react-navigation/core";
 import { IssueStackParamList } from "../IssuesStack";
 import StatusBadge from "components/StatusBadge";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "store/auth/authSlice";
 
 interface IProps {
   route: RouteProp<IssueStackParamList, "ShowIssue">;
@@ -19,26 +21,34 @@ interface IProps {
 
 export const ShowIssue: FC<IProps> = ({ route, navigation }) => {
   const { issueId } = route.params;
+  const user = useSelector(selectCurrentUser);
 
   const { data, isLoading, isError, error } = useFetchIssueQuery(
     Number(issueId)
   );
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          onPress={() => navigation.navigate("EditIssue", { issueId })}
-          title="Edit"
-        />
-      ),
-    });
-  }, [navigation]);
+  console.log(data);
 
-  const createLink = (user: string, repo: string, issue: number) => () => {
-    const link = `https://github.com/${user}/${repo}/issues/${issue}`;
-    openLink(link);
-  };
+  React.useLayoutEffect(() => {
+    if (user?.id === data?.creator.id) {
+      navigation.setOptions({
+        headerRight: () => (
+          <Button
+            onPress={() => navigation.navigate("EditIssue", { issueId })}
+            title="Edit"
+          />
+        ),
+      });
+    }
+  }, [navigation, user, data]);
+
+  React.useLayoutEffect(() => {
+    if (data) {
+      navigation.setOptions({
+        title: `Issue #${data.github_issue_number}`
+      });
+    }
+  }, [data]);
 
   if (isLoading) {
     return <Text>Loading</Text>;
@@ -47,6 +57,11 @@ export const ShowIssue: FC<IProps> = ({ route, navigation }) => {
   if (isError) {
     return <Text>Error {JSON.stringify(error)}</Text>;
   }
+
+  const createLink = (user: string, repo: string, issue: number) => () => {
+    const link = `https://github.com/${user}/${repo}/issues/${issue}`;
+    openLink(link);
+  };
 
   return (
     <ScrollView style={styles.pageContainer}>
