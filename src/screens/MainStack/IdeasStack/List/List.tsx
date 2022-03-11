@@ -18,6 +18,10 @@ import {
 } from "store/filtering/slice";
 import { selectCurrentUser } from "store/auth/authSlice";
 
+import searchStyles from "styles/search";
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 export const Ideas = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
@@ -82,10 +86,14 @@ export const Ideas = () => {
   const handleSearchChange: (text?: string) => any | void = (text) => {
     dispatch(setIdeaSearch(text || ""));
   };
+  const { top } = useSafeAreaInsets();
 
   return (
     <>
       <SearchBar
+        inputStyle={searchStyles.input}
+        containerStyle={[searchStyles.containter, { marginTop: top }]}
+        inputContainerStyle={searchStyles.iconContainer}
         lightTheme
         placeholder="Search"
         onChangeText={handleSearchChange}
@@ -104,6 +112,7 @@ export const Ideas = () => {
             )
           );
         }}
+        style={styles.segmentControll}
       />
       <FlatList
         data={resultsToDisplay}
@@ -139,6 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     color: "blue",
   },
+  segmentControll: { marginHorizontal: 15 },
 });
 
 export default Ideas;

@@ -22,4 +22,5 @@ export default StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
   },
+  segmentControll: { marginHorizontal: 15 },
 });

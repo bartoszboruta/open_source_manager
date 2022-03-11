@@ -2,13 +2,14 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   badge: {
-    padding: 5,
-    borderRadius: 5,
+    padding: 3,
+    borderRadius: 8,
     borderWidth: 1,
     fontWeight: "600",
     overflow: "hidden",
-    width: 100,
+    width: 70,
     textAlign: "center",
+    fontSize: 10,
   },
   badgeNew: {
     borderColor: "#6666FF",

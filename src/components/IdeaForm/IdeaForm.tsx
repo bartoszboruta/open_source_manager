@@ -74,7 +74,11 @@ const IdeaForm: FC<Props> = ({
         cancelButtonIndex,
       },
       (index) => {
-        if ((index || index === 0) && index > -1) {
+        if (
+          (index || index === 0) &&
+          index > -1 &&
+          index !== cancelButtonIndex
+        ) {
           handleChange("status")(statuses[index]);
         }
         statusInputRef.current?.blur?.();
