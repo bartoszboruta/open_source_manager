@@ -5,7 +5,7 @@ const PADDING = 12;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative'
+    position: "relative",
   },
   error: {
     fontSize: 22,
@@ -21,19 +21,19 @@ export const styles = StyleSheet.create({
     padding: PADDING,
   },
   header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: PADDING
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: PADDING,
   },
   headerUser: {
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
   },
   handle: {
     color: "gray",
     fontSize: 30,
-    marginLeft: 10
+    marginLeft: 10,
   },
   name: {
     fontSize: 30,

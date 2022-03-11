@@ -6,6 +6,8 @@ import TextField from "components/Form/TextField";
 import { useRegisterMutation } from "store/internal/slice";
 
 import schema, { RegisterSchema } from "./schema";
+import { useNavigation } from "@react-navigation/native";
+import styles from "./styles";
 
 const initialValues: RegisterSchema = {
   email: "",
@@ -15,6 +17,7 @@ const initialValues: RegisterSchema = {
 };
 
 const Form = () => {
+  const navigation = useNavigation();
   const [registerMutation, { data, isLoading, isError, error }] =
     useRegisterMutation();
 
@@ -23,50 +26,58 @@ const Form = () => {
   }, []);
 
   return (
-    <Formik
-      validateOnChange={false}
-      onSubmit={submitForm}
-      initialValues={initialValues}
-      validationSchema={schema}
-    >
-      {({ handleSubmit }) => {
-        return (
-          <>
-            <Field
-              label="Github name"
-              name="github_name"
-              placeholder="Enter Github name"
-              component={TextField}
-            />
-            <Field
-              label="Email"
-              name="email"
-              placeholder="Enter email"
-              component={TextField}
-            />
-            <Field
-              name="password"
-              label="Passowrd"
-              placeholder="Enter password"
-              component={TextField}
-              secureTextEntry={true}
-            />
-            <Field
-              name="confirmed_password"
-              label="Confirm passowrd"
-              placeholder="Enter password"
-              component={TextField}
-              secureTextEntry={true}
-            />
-            <Button
-              loading={isLoading}
-              onPress={() => handleSubmit()}
-              title="Register"
-            />
-          </>
-        );
-      }}
-    </Formik>
+    <>
+      <Formik
+        validateOnChange={false}
+        onSubmit={submitForm}
+        initialValues={initialValues}
+        validationSchema={schema}
+      >
+        {({ handleSubmit }) => {
+          return (
+            <>
+              <Field
+                label="Github name"
+                name="github_name"
+                placeholder="Enter Github name"
+                component={TextField}
+              />
+              <Field
+                label="Email"
+                name="email"
+                placeholder="Enter email"
+                component={TextField}
+              />
+              <Field
+                name="password"
+                label="Passowrd"
+                placeholder="Enter password"
+                component={TextField}
+                secureTextEntry={true}
+              />
+              <Field
+                name="confirmed_password"
+                label="Confirm passowrd"
+                placeholder="Enter password"
+                component={TextField}
+                secureTextEntry={true}
+              />
+              <Button
+                loading={isLoading}
+                onPress={() => handleSubmit()}
+                title="Register"
+              />
+            </>
+          );
+        }}
+      </Formik>
+      <Button
+        title="Login"
+        type="clear"
+        style={styles.goBack}
+        onPress={() => navigation.goBack()}
+      ></Button>
+    </>
   );
 };
 
