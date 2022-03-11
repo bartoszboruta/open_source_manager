@@ -3,11 +3,12 @@ import { Text, View, Image, TouchableOpacity, SafeAreaView } from "react-native"
 import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import { useAuth } from "hooks";
 import { useFetchProfileQuery } from "../../../store/github/slice";
 import { selectCurrentUser } from '../../../store/auth/authSlice';
 
+import Issues from './Analitycs/Issues'
 import { styles } from "./styles";
-import { useAuth } from "hooks";
 
 const Profile = () => {
   const { resetCredentials } = useAuth();
@@ -23,21 +24,21 @@ const Profile = () => {
 
   if (isLoading) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.loader}>
           data is being loaded, have patience my friend
         </Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
   if (error) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.error}>
           Found an error: {JSON.stringify(error)}
         </Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
@@ -54,6 +55,7 @@ const Profile = () => {
       </View>
       <View style={styles.body}>
         <Text style={styles.name}>{data.name}</Text>
+        <Issues />
       </View>
     </SafeAreaView>
   );
