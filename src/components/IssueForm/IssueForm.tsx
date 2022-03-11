@@ -1,10 +1,11 @@
-import { Input, Button } from "react-native-elements";
 import { useFormik } from "formik";
+import * as Clipboard from "expo-clipboard";
+import { Input, Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
-import { View } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import { Issue } from "store/internal/types";
 import { selectCurrentUser } from "store/auth/authSlice";
@@ -24,6 +25,7 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
   const { goBack } = useNavigation();
   const [createIssue, { isLoading: isCreating }] = useCreateIssueMutation();
   const [updateIssue, { isLoading: isUpdating }] = useUpdateIssueMutation();
+  const [error, setError] = useState<null | true>(null);
   const { refetch } = useFetchIssueQuery(Number(issue.id));
   const user = useSelector(selectCurrentUser);
 
@@ -45,15 +47,62 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
     }
   };
 
-  const { submitForm, values, errors, touched, handleChange } = useFormik<
-    Partial<Issue>
-  >({
-    initialValues: issue,
-    onSubmit: sendForm,
-  });
+  const { submitForm, values, errors, touched, handleChange, setFieldValue } =
+    useFormik<Partial<Issue>>({
+      initialValues: issue,
+      onSubmit: sendForm,
+    });
+
+  const getClipboardContent = async () => {
+    const content = await Clipboard.getStringAsync();
+    const regex = /^https:\/\/github.com\/[^/]*\/[^/]*\/issues\/\d+$/;
+    const isValidLink = regex.test(content);
+
+    if (!isValidLink) {
+      setError(true);
+      return;
+    }
+
+    const usernameFromLinkRegex = /github.com\/(.*)[\\\/]\d+/;
+
+    const xd = content.match(usernameFromLinkRegex);
+    //@ts-ignore
+    const username = xd[1].split("/")[0];
+
+    const matches = content.match(/([^\/]+)\/issues\/(\d+)$/);
+    //@ts-ignore
+    const [, repo, issue] = matches;
+
+    if (!username || !repo || !issue) {
+      setError(true);
+      return;
+    }
+
+    setError(null);
+    setFieldsFromClipboard(repo, username, issue);
+  };
+
+  const setFieldsFromClipboard = async (
+    repo: string,
+    owner: string,
+    issue: number
+  ) => {
+    setFieldValue("github_repository", repo);
+    setFieldValue("github_owner", owner);
+    setFieldValue("github_issue_number", String(issue));
+  };
 
   return (
     <View style={styles.wrapper}>
+      <View style={styles.actions}>
+        <TouchableOpacity
+          onPress={getClipboardContent}
+          style={styles.pasteButton}
+        >
+          <Text>Paste from clipboard</Text>
+        </TouchableOpacity>
+        {error && <Text style={styles.errorText}>Invalid Format</Text>}
+      </View>
       <Input
         value={values.description}
         onChangeText={handleChange("description")}
@@ -84,6 +133,7 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
         placeholder={"Status"}
       />
       <Button
+        style={{ flex: 1 }}
         onPress={submitForm}
         title={isUpdate ? "Update Me!" : "Create Me!"}
         icon={
