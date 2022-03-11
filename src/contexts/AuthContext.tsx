@@ -56,7 +56,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
   const resetCredentials = () => {
     dispatch(storeResetCredential());
     setUser(null);
-    setToken("");
+    setToken(null);
   };
 
   if (loading) {

@@ -26,6 +26,12 @@ export const ShowIssue = ({ route, navigation }) => {
     });
   }, [navigation]);
 
+  const createLink = (user: string, repo: string, issue: number) => () => {
+    const link = `https://github.com/${user}/${repo}/issues/${issue}`
+    openLink(link);
+  }
+
+
   if (isLoading) {
     return <Text>Loading</Text>;
   }
@@ -39,7 +45,7 @@ export const ShowIssue = ({ route, navigation }) => {
       <Text style={styles.header}>DESCRIPTION</Text>
       <Text>{data?.description}</Text>
       <Text style={styles.header}>GITHUB</Text>
-      <TouchableOpacity onPress={() => openLink(data!.github_repository)}>
+      <TouchableOpacity onPress={createLink(data!.github_owner, data!.github_repository, data!.github_issue_number)}>
         <Text style={styles.link}>{data?.github_repository}</Text>
       </TouchableOpacity>
       <Text style={styles.header}>STATUS</Text>

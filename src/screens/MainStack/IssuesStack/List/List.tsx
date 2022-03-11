@@ -85,8 +85,6 @@ export const Issues = () => {
     dispatch(setIssueSearch(text || ""));
   };
 
-  console.log(resultsToDisplay);
-
   return (
     <>
       <SearchBar

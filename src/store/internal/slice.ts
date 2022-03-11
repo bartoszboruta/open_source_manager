@@ -29,6 +29,12 @@ export const internalApi = createApi({
     fetchIssues: builder.query<Issue[], string>({
       query: (filters) => `issues${filters}`,
     }),
+    fetchIssuesByUser: builder.query<Issue[], number>({
+      query: (id) => `issues?q[creator_id_in][]=${id}`,
+    }),
+    fetchIssuesAssignedTo: builder.query<Issue[], number>({
+      query: (id) => `issues?q[users_id_in][]=${id}`,
+    }),
     fetchIdeas: builder.query<Idea[], string>({
       query: (filters) => `ideas${filters}`,
     }),
@@ -107,6 +113,8 @@ export const {
   useFetchIssuesQuery,
   useFetchIdeasQuery,
   useFetchIssueQuery,
+  useFetchIssuesByUserQuery,
+  useFetchIssuesAssignedToQuery,
   useFetchIdeaQuery,
   useCreateIssueMutation,
   useUpdateIssueMutation,
