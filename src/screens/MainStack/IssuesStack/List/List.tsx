@@ -57,9 +57,9 @@ export const Issues = () => {
         keyExtractor={(item) => String(item.id)}
       />
       <FAB
-        size="large"
-        title="+"
+        icon={{ name: 'add', color: 'white' }}
         placement="right"
+        size="large"
         onPress={() => navigation.navigate("AddIssue")}
       />
     </>

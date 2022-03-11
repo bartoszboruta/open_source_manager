@@ -61,9 +61,9 @@ export const Ideas = () => {
         keyExtractor={(item) => String(item.id)}
       />
       <FAB
-        size="large"
-        title="+"
+        icon={{ name: 'add', color: 'white' }}
         placement="right"
+        size="large"
         onPress={() => navigation.navigate("AddIdea")}
       />
     </>
