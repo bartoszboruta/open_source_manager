@@ -126,14 +126,13 @@ const IssueForm: FC<IssueFormProps> = ({ issue = {} }) => {
         onChangeText={handleChange("github_issue_number")}
         placeholder={"Github Issue Number"}
       />
-
+      
       <Input
         value={values.status}
         onChangeText={handleChange("status")}
         placeholder={"Status"}
       />
       <Button
-        style={{ flex: 1 }}
         onPress={submitForm}
         title={isUpdate ? "Update Me!" : "Create Me!"}
         icon={
