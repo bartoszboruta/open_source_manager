@@ -46,7 +46,9 @@ export const Assignees = ({ id, users }: Props) => {
           assignUser({ issueId: id, userId });
         }}
       >
-        <Text style={styles.link}>No one - assign to me</Text>
+        <Text style={styles.link}>
+          {users?.length ? "Assign to me" : "No one - assign to me"}
+        </Text>
       </TouchableOpacity>
     );
   }, [userId, id, users]);
