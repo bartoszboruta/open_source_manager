@@ -1,6 +1,19 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  assigneeName: {
+    marginLeft: 12,
+  },
+  assignee: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 2,
+  },
+  avatar: {
+    width: 32,
+    height: 32,
+    borderRadius: 24,
+  },
   pageContainer: {
     paddingHorizontal: 12,
     backgroundColor: "white",

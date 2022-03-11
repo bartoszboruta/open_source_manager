@@ -2,18 +2,20 @@ import React from "react";
 import { View, Text } from "react-native";
 import Markdown from "react-native-markdown-display";
 
+import styles from "styles/cardDetails";
 import { useFetchGithubIssueQuery } from "store/github/slice";
+import GithubAssignees from "./GithubAssignees";
 
-const ShowGithubIssue = () => {
+const ShowGithubIssue = ({ owner, repo, issueNumber }) => {
   const {
     data: githubData,
     isLoading,
     isError,
     error,
   } = useFetchGithubIssueQuery({
-    owner: "bartoszboruta",
-    repo: "open_source_manager",
-    issueNumber: 1,
+    owner,
+    repo,
+    issueNumber,
   });
 
   if (isLoading) {
@@ -26,8 +28,19 @@ const ShowGithubIssue = () => {
 
   return (
     <View>
-      <Text>GITHUB DESCRIPTION</Text>
-      <Markdown>{githubData?.body}</Markdown>
+      {githubData?.body ? (
+        <>
+          <Text style={styles.header}>GITHUB DESCRIPTION</Text>
+          <Markdown>{githubData?.body}</Markdown>
+        </>
+      ) : null}
+
+      {githubData?.assignees?.length && githubData.assignees ? (
+        <>
+          <Text style={styles.header}>GITHUB ASSIGNEES</Text>
+          <GithubAssignees assignees={githubData.assignees} />
+        </>
+      ) : null}
     </View>
   );
 };
