@@ -20,6 +20,9 @@ import {
 } from "store/filtering/slice";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 
+import searchStyles from "styles/search";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 export const Issues = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
@@ -85,9 +88,14 @@ export const Issues = () => {
     dispatch(setIssueSearch(text || ""));
   };
 
+  const { top } = useSafeAreaInsets();
+
   return (
     <>
       <SearchBar
+        inputStyle={searchStyles.input}
+        containerStyle={[searchStyles.containter, { marginTop: top }]}
+        inputContainerStyle={searchStyles.iconContainer}
         lightTheme
         placeholder="Search"
         onChangeText={handleSearchChange}
@@ -106,6 +114,7 @@ export const Issues = () => {
             )
           );
         }}
+        style={styles.segmentControll}
       />
       <FlatList
         data={resultsToDisplay}

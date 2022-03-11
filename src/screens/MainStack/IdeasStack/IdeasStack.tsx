@@ -18,7 +18,11 @@ const Stack = createStackNavigator<IdeasParamList>();
 
 export default () => (
   <Stack.Navigator>
-    <Stack.Screen name="List" component={List} />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="List"
+      component={List}
+    />
     <Stack.Screen
       name="AddIdea"
       component={AddIdea}
