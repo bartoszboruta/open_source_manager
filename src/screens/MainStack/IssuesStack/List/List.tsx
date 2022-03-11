@@ -41,6 +41,8 @@ export const Issues = () => {
     );
   }
 
+  // console.log(data)
+
   return (
     <>
       <SearchBar
