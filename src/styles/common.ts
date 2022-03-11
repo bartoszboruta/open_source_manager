@@ -9,7 +9,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    padding: spacing.xs,
+    padding: 35,
+    flex: 1,
+    justifyContent: "center",
   },
   url: {
     textDecorationLine: "underline",
