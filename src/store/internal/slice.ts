@@ -25,7 +25,7 @@ export const internalApi = createApi({
     },
     baseUrl: "https://osb-backend.herokuapp.com/",
   }),
-  tagTypes: ["Issue"],
+  tagTypes: ["Issue", "Idea"],
   endpoints: (builder) => ({
     assignUserToIssue: builder.mutation<
       Issue,
@@ -43,6 +43,22 @@ export const internalApi = createApi({
         },
       }),
     }),
+    assignUserToIdea: builder.mutation<
+      Issue,
+      { ideaId: number; userId: number }
+    >({
+      invalidatesTags: ["Idea"],
+      query: ({ ideaId, userId }) => ({
+        url: `/user_ideas`,
+        method: "POST",
+        body: {
+          user_idea: {
+            user_id: userId,
+            idea_id: ideaId,
+          },
+        },
+      }),
+    }),
     fetchIssues: builder.query<Issue[], string>({
       query: (filters) => `issues${filters}`,
       providesTags: ["Issue"],
@@ -55,6 +71,7 @@ export const internalApi = createApi({
     }),
     fetchIdeas: builder.query<Idea[], string>({
       query: (filters) => `ideas${filters}`,
+      providesTags: ["Idea"],
     }),
     fetchIssue: builder.query<Issue, number>({
       query: (id) => `issues/${id}`,
@@ -62,6 +79,7 @@ export const internalApi = createApi({
     }),
     fetchIdea: builder.query<Idea, number>({
       query: (id) => `ideas/${id}`,
+      providesTags: ["Idea"],
     }),
     createIssue: builder.mutation<Issue, Partial<Issue>>({
       query: (body) => ({
@@ -130,6 +148,7 @@ export const internalApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useAssignUserToIssueMutation,
+  useAssignUserToIdeaMutation,
   useFetchIssuesQuery,
   useFetchIdeasQuery,
   useFetchIssueQuery,

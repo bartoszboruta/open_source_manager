@@ -11,6 +11,7 @@ import styles from "styles/cardDetails";
 import StatusBadge from "components/StatusBadge";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "store/auth/authSlice";
+import Assignees from "./Assignees";
 
 export type IdeaDetailsProps = {
   route: RouteProp<{ params: { idea_id: number } }, "params">;
@@ -20,6 +21,7 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
   const id = props.route.params?.idea_id;
   const user = useSelector(selectCurrentUser);
   const { data, isLoading, isError, error, refetch } = useFetchIdeaQuery(id);
+
   const navigation = useNavigation<any>();
 
   useFocusEffect(useCallback(refetch, []));
@@ -44,19 +46,19 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
       <TouchableOpacity onPress={() => openLink(data.github_url)}>
         <Text style={styles.link}>{data.github_url}</Text>
       </TouchableOpacity>
+      <Assignees id={id} users={data?.users} />
       <Text style={styles.header}>STATUS</Text>
       <StatusBadge status={data.status} />
       <Text style={styles.header}>AUTHOR</Text>
       <Text>{data.creator.github_name}</Text>
       {isOwner ? (
         <Button
-        buttonStyle={styles.button}
-        title="Edit"
-        type="outline"
-        onPress={() => navigation.navigate("EditIdea", { idea: data })}
-      />
+          buttonStyle={styles.button}
+          title="Edit"
+          type="outline"
+          onPress={() => navigation.navigate("EditIdea", { idea: data })}
+        />
       ) : null}
-      
     </View>
   );
 }

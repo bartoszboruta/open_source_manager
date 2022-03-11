@@ -24,6 +24,7 @@ export type Idea = {
   creator: User;
   creator_id: number;
   id: number;
+  users: User[];
 };
 
 export type LoginRequestParams = {
