@@ -9,6 +9,8 @@ import { openLink } from "utils/linking";
 
 import styles from "styles/cardDetails";
 import StatusBadge from "components/StatusBadge";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "store/auth/authSlice";
 
 export type IdeaDetailsProps = {
   route: RouteProp<{ params: { idea_id: number } }, "params">;
@@ -16,6 +18,7 @@ export type IdeaDetailsProps = {
 
 export default function IdeaDetails(props: IdeaDetailsProps) {
   const id = props.route.params?.idea_id;
+  const user = useSelector(selectCurrentUser);
   const { data, isLoading, isError, error, refetch } = useFetchIdeaQuery(id);
   const navigation = useNavigation<any>();
 
@@ -31,6 +34,8 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
 
   if (!data) return null;
 
+  const isOwner = user!.id === data.creator.id;
+
   return (
     <View style={styles.pageContainer}>
       <Text style={styles.header}>DESCRIPTION</Text>
@@ -43,12 +48,15 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
       <StatusBadge status={data.status} />
       <Text style={styles.header}>AUTHOR</Text>
       <Text>{data.creator.github_name}</Text>
-      <Button
+      {isOwner ? (
+        <Button
         buttonStyle={styles.button}
         title="Edit"
         type="outline"
         onPress={() => navigation.navigate("EditIdea", { idea: data })}
       />
+      ) : null}
+      
     </View>
   );
 }

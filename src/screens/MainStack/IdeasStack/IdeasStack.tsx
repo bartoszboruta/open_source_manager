@@ -1,8 +1,8 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { Icon } from "react-native-elements";
 import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import AddIdea from "./AddIdea";
+import BackArrow from "components/BackArrow";
 import EditIdea from "./EditIdea/EditIdea";
 import IdeaDetails from "./IdeaDetails";
 import List from "./List";
@@ -29,43 +29,25 @@ export default () => (
       options={({ navigation, route }) => ({
         title: "Add Idea",
         headerShown: true,
-        headerLeft: () => (
-          <Icon
-            iconStyle={{ marginLeft: 8 }}
-            name="arrow-back-ios"
-            onPress={() => navigation.goBack()}
-          />
-        ),
+        headerLeft: () => <BackArrow navigation={navigation} />,
       })}
     />
     <Stack.Screen
       name="IdeaDetails"
       component={IdeaDetails}
       options={({ navigation, route }) => ({
-        title: route.params?.idea?.name,
+        title: 'Idea Details',
         headerShown: true,
-        headerLeft: () => (
-          <Icon
-            iconStyle={{ marginLeft: 8 }}
-            name="arrow-back-ios"
-            onPress={() => navigation.goBack()}
-          />
-        ),
+        headerLeft: () => <BackArrow navigation={navigation} />,
       })}
     />
     <Stack.Screen
       name="EditIdea"
       component={EditIdea}
       options={({ navigation, route }) => ({
-        title: route.params?.idea?.name,
+        title: `Edit ${route.params?.idea?.name}`,
         headerShown: true,
-        headerLeft: () => (
-          <Icon
-            iconStyle={{ marginLeft: 8 }}
-            name="arrow-back-ios"
-            onPress={() => navigation.goBack()}
-          />
-        ),
+        headerLeft: () => <BackArrow navigation={navigation} />,
       })}
     />
   </Stack.Navigator>
