@@ -7,6 +7,7 @@ import React from "react";
 import { Issue } from "store/internal/types";
 
 import styles from "styles/card";
+import StatusBadge from "components/StatusBadge";
 
 type IssueCardProps = {
   issue: Issue;
@@ -30,11 +31,14 @@ export default function IssueCard({ issue }: IssueCardProps) {
       </Card.Title>
       <Card.Divider />
       <Text numberOfLines={2}>{description}</Text>
+
       <View style={styles.detailsContainer}>
         <View>
           <Text>created by:</Text>
           <Text>{creator.github_name}</Text>
         </View>
+        <StatusBadge status={status} />
+
         <TouchableOpacity
           onPress={() => navigation.navigate("ShowIssue", { issueId: id })}
         >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Button } from "react-native-elements";
 import { Text, TouchableOpacity, ScrollView } from "react-native";
 
@@ -8,9 +8,17 @@ import { useFetchIssueQuery } from "store/internal/slice";
 
 import Assignees, { AssigneeWithGithubData } from "./Assignees";
 import ShowGithubIssue from "./ShowGithubIssue";
+import { NavigationProp, RouteProp } from "@react-navigation/core";
+import { IssueStackParamList } from "../IssuesStack";
+import StatusBadge from "components/StatusBadge";
 
-export const ShowIssue = ({ route, navigation }) => {
-  const { issueId } = route?.params;
+interface IProps {
+  route: RouteProp<IssueStackParamList, "ShowIssue">;
+  navigation: NavigationProp<any>;
+}
+
+export const ShowIssue: FC<IProps> = ({ route, navigation }) => {
+  const { issueId } = route.params;
 
   const { data, isLoading, isError, error } = useFetchIssueQuery(
     Number(issueId)
@@ -57,7 +65,7 @@ export const ShowIssue = ({ route, navigation }) => {
       <Assignees id={issueId} users={data?.users} />
 
       <Text style={styles.header}>STATUS</Text>
-      <Text>{data?.status}</Text>
+      <StatusBadge status={data?.status} />
       {data?.creator ? (
         <>
           <Text style={styles.header}>AUTHOR</Text>

@@ -4,7 +4,8 @@ import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 import {
   useCreateIdeaMutation,
@@ -15,6 +16,8 @@ import { selectCurrentUser } from "store/auth/authSlice";
 
 import styles from "../IssueForm/styles";
 
+const statuses = ["new", "assigned", "done"];
+
 type Props = {
   idea?: Idea;
 };
@@ -24,10 +27,12 @@ const IdeaForm: FC<Props> = ({
     description: "",
     name: "",
     github_url: "",
-    status: "",
+    status: "new",
   },
 }) => {
   const { goBack } = useNavigation();
+  const statusInputRef = useRef<any>();
+  const { showActionSheetWithOptions } = useActionSheet();
 
   const [createIdea, { isLoading: isCreating }] = useCreateIdeaMutation();
   const [updateIdea, { isLoading: isUpdating }] = useUpdateIdeaMutation();
@@ -59,6 +64,24 @@ const IdeaForm: FC<Props> = ({
     onSubmit: sendForm,
   });
 
+  const openPicker = () => {
+    const options = [...statuses, "Cancel"];
+    const cancelButtonIndex = 3;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      (index) => {
+        if ((index || index === 0) && index > -1) {
+          handleChange("status")(statuses[index]);
+        }
+        statusInputRef.current?.blur?.();
+      }
+    );
+  };
+
   return (
     <View style={styles.wrapper}>
       <Input
@@ -78,7 +101,9 @@ const IdeaForm: FC<Props> = ({
         placeholder="Github Repo"
       />
       <Input
+        ref={statusInputRef}
         value={values.status}
+        onFocus={openPicker}
         onChangeText={handleChange("status")}
         placeholder="Status"
       />

@@ -5,7 +5,15 @@ import List from "./List";
 import AddIssue from "./AddIssue";
 import EditIssue from "./EditIssue";
 import ShowIssue from "./ShowIssue";
-const Stack = createStackNavigator();
+
+export type IssueStackParamList = {
+  List: undefined;
+  AddIssue: undefined;
+  EditIssue: undefined;
+  ShowIssue: { issueId: string };
+};
+
+const Stack = createStackNavigator<IssueStackParamList>();
 
 export default () => (
   <Stack.Navigator>

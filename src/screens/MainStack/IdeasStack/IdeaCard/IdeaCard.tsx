@@ -7,6 +7,7 @@ import React from "react";
 import { Idea } from "store/internal/types";
 
 import styles from "styles/card";
+import StatusBadge from "components/StatusBadge";
 
 type IdeaCardProps = {
   idea: Idea;
@@ -26,6 +27,7 @@ export default function IdeaCard({ idea }: IdeaCardProps) {
           <Text>created by:</Text>
           <Text>{creator.github_name}</Text>
         </View>
+        <StatusBadge status={idea.status} />
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("IdeaDetails", { idea_id: idea.id })

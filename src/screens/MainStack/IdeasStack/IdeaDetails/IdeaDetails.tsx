@@ -8,6 +8,7 @@ import { useFetchIdeaQuery } from "store/internal/slice";
 import { openLink } from "utils/linking";
 
 import styles from "styles/cardDetails";
+import StatusBadge from "components/StatusBadge";
 
 export type IdeaDetailsProps = {
   route: RouteProp<{ params: { idea_id: number } }, "params">;
@@ -39,7 +40,7 @@ export default function IdeaDetails(props: IdeaDetailsProps) {
         <Text style={styles.link}>{data.github_url}</Text>
       </TouchableOpacity>
       <Text style={styles.header}>STATUS</Text>
-      <Text>{data.status}</Text>
+      <StatusBadge status={data.status} />
       <Text style={styles.header}>AUTHOR</Text>
       <Text>{data.creator.github_name}</Text>
       <Button

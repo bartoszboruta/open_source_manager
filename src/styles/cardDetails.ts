@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   pageContainer: {
     paddingHorizontal: 12,
     backgroundColor: "white",
-    flex: 1,
   },
   button: {
     alignSelf: "center",
